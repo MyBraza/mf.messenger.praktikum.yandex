@@ -18,5 +18,8 @@
   "homepage": "https://github.com/MyBraza/mf.messenger.praktikum.yandex#readme",
   "devDependencies": {
     "express": "^4.17.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1"
   }
 }

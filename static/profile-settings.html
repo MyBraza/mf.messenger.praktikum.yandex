@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="fontawesome/css/all.css">
+	<link rel="stylesheet" href="normilize.css">
+	<link rel="stylesheet" href="settings-grid.css">
+	<link rel="stylesheet" href="settings-nav.css">
+	<link rel="stylesheet" href="user-bar.css">
+	<link rel="stylesheet" href="form-window.css">
+	<link rel="stylesheet" href="profile-settings.css">
+	<meta charset="UTF-8">
+	<title>Profile bio</title>
+</head>
+<body>
+<div class="grid">
+	<div class="settings-nav">
+		<div class="settings-nav__header">
+			<i class="fa fa-arrow-left settings-nav__icon"></i>
+			<p>Управление профилем</p>
+		</div>
+		<nav class="settings-nav__menu">
+			<ul>
+				<li class="settings-nav__menu__item settings-nav__menu_active">
+					<i class="fa fa-address-card settings-nav__icon"></i>
+					Информация о пользователе
+				</li>
+				<li class="settings-nav__menu__item">
+					<i class="fa fa-door-open settings-nav__icon"></i>
+					Выйти
+				</li>
+			</ul>
+		</nav>
+		<div class="user-bar">
+			<div class="user-bar__image">
+				<img src="img/alex-suprun-ZHvM3XIOHoE-unsplash-min.jpg" alt="">
+				<div class="user-bar__status">
+					<i class="fas fa-circle"></i>
+				</div>
+			</div>
+			<div class="user-bar__text">
+				<div class="user-bar__text__username">
+					Иван Иванов
+				</div>
+				<div class="user-bar__text__email">
+					pochta@yandex.ru
+				</div>
+			</div>
+			<div class="user-bar__setting-icon">
+				<i class="fa fa-cog"></i>
+			</div>
+		</div>
+	</div>
+	<main class="profile-settings">
+		<div class="profile-settings__image">
+			<img src="img/alex-suprun-ZHvM3XIOHoE-unsplash-min.jpg" alt="">
+			<div class="profile-settings__status">
+				<i class="fa fa-edit" id="image-input"></i>
+			</div>
+		</div>
+		<form class="profile-settings__form" method="post" name="profile-info">
+			<ul>
+				<li>
+					<div>
+						<label for="display-name"></label>
+						<input class="profile-settings__display-name" type="text" id="display-name" name="display-name"
+						       placeholder="Введите имя">
+						<label for="avatar"></label>
+						<input type="file" id="avatar" name="avatar" hidden="true">
+					</div>
+				</li>
+				<li class="form-window__login-form__row">
+					<div class="form-window__login-form__item">
+						<label for="first_name">Имя</label>
+						<input type="text" id="first_name" name="first_name" placeholder="Введите имя">
+					</div>
+					<div class="form-window__login-form__item">
+						<label for="second_name">Фамилия</label>
+						<input type="text" id="second_name" name="second_name" placeholder="Введите фамилию">
+					</div>
+				</li>
+				<li class="form-window__login-form__row">
+					<div class="form-window__login-form__item">
+						<label for="email">Почта</label>
+						<input type="email" id="email" name="email" placeholder="Введите адрес электронной почты">
+					</div>
+					<div class="form-window__login-form__item">
+						<label for="phone">Телефон</label>
+						<input type="text" id="phone" name="phone" placeholder="Введите телефонный номер">
+					</div>
+				</li>
+				<li class="form-window__login-form__row">
+					<div class="form-window__login-form__item">
+						<label for="login">Логин</label>
+						<input type="text" id="login" name="login" placeholder="Введите логин">
+					</div>
+				</li>
+				<li class="form-window__login-form__row">
+					<div class="form-window__login-form__item">
+						<label for="oldPassword">Старый пароль</label>
+						<input type="text" id="oldPassword" name="oldPassword" placeholder="Старый пароль">
+					</div>
+					<div class="form-window__login-form__item">
+						<label for="newPassword">Новый пароль</label>
+						<input type="text" id="newPassword" name="newPassword" placeholder="Новый пароль">
+					</div>
+				</li>
+			</ul>
+		</form>
+		<div class="form-window__button-row">
+			<button class="form-window__button" id="submit-button" data-form-name="profile-info">
+				Сохранить
+			</button>
+			<button class="form-window__button_empty">
+				Отмена
+			</button>
+		</div>
+	</main>
+	<script type="text/javascript" src="js/main.js"></script>
+</div>
+</body>
+</html>
