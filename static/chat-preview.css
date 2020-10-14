@@ -79,6 +79,8 @@
 }
 
 .chat-preview__name {
+  font-size: 12pt;
+  font-weight: normal;
   color: #eeeeee;
   margin-bottom: 10px;
 }

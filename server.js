@@ -1,12 +1,11 @@
 const express = require('express');
+const path = require('path');
 
 const app = express();
 const PORT = 3000;
 
-// Можно path.join(__dirname, 'static');
-// Плюс такого подхода в том, что join сам поставит нужные разделители между дирректориями в зависимости от ОС
-app.use(express.static(__dirname + '/static'));
+app.use(express.static(path.join(__dirname, 'static')));
 
 app.listen(PORT, function () {
-  console.log(`App listening on port ${PORT}!`);
+	console.log(`App listening on port ${PORT}!`);
 });

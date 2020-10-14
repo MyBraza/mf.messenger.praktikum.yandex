@@ -18,6 +18,10 @@
   color: #c4c4c4;
 }
 
+.chat-feed__no-chat-selected h1{
+  font-size: 14pt;
+}
+
 .chat-feed__no-chat-selected i {
   font-size: 70px;
 }
@@ -71,6 +75,15 @@
   margin: 0 10px;
   cursor: pointer;
   transition-duration: 0.3s;
+}
+
+.chat-feed__empty-button{
+  background-color: transparent;
+  border: none;
+}
+
+.chat-feed__empty-button:focus{
+  outline: none;
 }
 
 .chat-feed__message-input i:hover {
