@@ -1,43 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<link rel="stylesheet" href="normilize.css">
-	<link rel="stylesheet" href="form-window.css">
-	<meta charset="UTF-8">
-	<title>Authorization</title>
-</head>
-<body>
-<main class="form-window__authorization-page">
-	<div class="form-window">
-		<div class="form-window__tittle">
-			Вход
-		</div>
-		<form class="form-window__login-form" method="post" name="authorization">
-			<ul>
-				<li>
-					<div class="form-window__login-form__item">
-						<label for="login">Логин</label>
-						<input type="text" id="login" name="login" placeholder="Введите пароль">
-					</div>
-				</li>
-				<li>
-					<div class="form-window__login-form__item">
-						<label for="password">Пароль</label>
-						<input type="password" id="password" name="password" placeholder="Введите пароль">
-					</div>
-				</li>
-			</ul>
-		</form>
-		<div class="form-window__button-col">
-			<button type="submit" data-form-name="authorization" class="form-window__button" id="submit-button">
-				Авторизоваться
-			</button>
-			<button class="form-window__button_empty">
-				Создать аккаунт
-			</button>
-		</div>
-	</div>
-</main>
-<script type="text/javascript" src="js/main.js"></script>
-</body>
+  <head>
+    <link rel="stylesheet" href="normilize.css" />
+    <link rel="stylesheet" href="form-window.css" />
+    <meta charset="UTF-8" />
+    <title>Authorization</title>
+  </head>
+  <body>
+    <main class="form-window__authorization-page">
+      <div class="form-window">
+        <!-- Тут стоит использовать заголовок первого уровня -->
+        <div class="form-window__tittle">Вход</div>
+        <form
+          class="form-window__login-form"
+          method="post"
+          name="authorization"
+        >
+          <!-- Мне кажется, что список тут не совсем подойдет. Лучше оставить просто пару <div> внутри <form> -->
+          <ul>
+            <li>
+              <div class="form-window__login-form__item">
+                <label for="login">Логин</label>
+                <input
+                  type="text"
+                  id="login"
+                  name="login"
+                  placeholder="Введите пароль"
+                />
+              </div>
+            </li>
+            <li>
+              <div class="form-window__login-form__item">
+                <label for="password">Пароль</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Введите пароль"
+                />
+              </div>
+            </li>
+          </ul>
+        </form>
+        <div class="form-window__button-col">
+          <button
+            type="submit"
+            data-form-name="authorization"
+            class="form-window__button"
+            id="submit-button"
+          >
+            Авторизоваться
+          </button>
+          <!-- Тут по смыслу больше подходит ссылка на страницу регистрации -->
+          <button class="form-window__button_empty">Создать аккаунт</button>
+        </div>
+      </div>
+    </main>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
 </html>
