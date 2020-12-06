@@ -1,8 +1,0 @@
-.grid {
-  display: grid;
-  grid-template-rows: 70px 1fr;
-  grid-template-columns: 3fr 10fr;
-  grid-template-areas:
-    'nav-head content-head'
-    'nav content-body';
-}

@@ -1,0 +1,39 @@
+.error-window {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #252525;
+  width: 100%;
+  min-height: 100vh;
+  font-family: Arial, serif;
+  font-weight: bold;
+  color: #eeeeee;
+
+  &__id {
+    font-size: 72pt;
+    margin: 0;
+  }
+
+  &__text {
+    font-size: 16pt;
+    margin-top: 20px;
+  }
+
+  &__button {
+    background-color: transparent;
+    color: #0080ff;
+    font-size: 10pt;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  &__button:hover {
+    text-decoration: underline;
+  }
+
+  button:focus {
+    outline: none;
+  }
+}

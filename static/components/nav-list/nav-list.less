@@ -1,0 +1,20 @@
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 10px;
+  width: 100%;
+
+  & .active {
+    background-color: #505050;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}
+
+@import "../chat-item/chat-item";
+@import "../settings-item/settings-item";

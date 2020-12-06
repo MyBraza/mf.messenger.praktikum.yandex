@@ -1,0 +1,41 @@
+.message-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 40px;
+  margin: 15px 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  background-color: #252525;
+}
+.message-input input {
+  font-size: 12pt;
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  width: 100%;
+  color: #eeeeee;
+}
+.message-input input:focus {
+  outline: none;
+}
+.message-input i {
+  color: #e5e5e5;
+  font-size: 25px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.message-input i:hover {
+  color: #0080ff;
+}
+.message-input__empty-button {
+  background-color: transparent;
+  border: none;
+}
+.message-input__empty-button:focus {
+  outline: none;
+}
+/*# sourceMappingURL=message-input.css.map */

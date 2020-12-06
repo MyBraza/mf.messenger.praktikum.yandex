@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "ES2015",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "typeRoots": ["static/js"]
+  },
+  "include": [
+    "static/js/*", "static/components/*", "static/components/*/*"
+  ],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

@@ -2,51 +2,15 @@
 <html lang="en">
 <head>
 	<link rel="stylesheet" href="normilize.css"/>
-	<link rel="stylesheet" href="form-window.css"/>
+	<link rel="stylesheet" href="components/form-window/form-window.css"/>
 	<meta charset="UTF-8"/>
 	<title>Authorization</title>
 </head>
 <body>
-<main class="form-window__authorization-page">
-	<div class="form-window">
-		<h1 class="form-window__tittle">Вход</h1>
-		<form
-				class="form-window__login-form"
-				method="post"
-				name="authorization"
-		>
-			<div class="form-window__login-form__item">
-				<label for="login">Логин</label>
-				<input
-						type="text"
-						id="login"
-						name="login"
-						placeholder="Введите пароль"
-				/>
-			</div>
-			<div class="form-window__login-form__item">
-				<label for="password">Пароль</label>
-				<input
-						type="password"
-						id="password"
-						name="password"
-						placeholder="Введите пароль"
-				/>
-			</div>
-		</form>
-		<div class="form-window__button-col">
-			<button
-					type="submit"
-					data-form-name="authorization"
-					class="form-window__button"
-					id="submit-button"
-			>
-				Авторизоваться
-			</button>
-			<div class="form-window__button_empty"><a href="registration.html">Создать аккаунт</a></div>
-		</div>
-	</div>
-</main>
-<script type="text/javascript" src="js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"
+        integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw=="
+        crossorigin="anonymous">
+</script>
+<script type="module" src="js/authorization.js"></script>
 </body>
 </html>

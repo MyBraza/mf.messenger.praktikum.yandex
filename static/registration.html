@@ -2,84 +2,15 @@
 <html lang="en">
 <head>
 	<link rel="stylesheet" href="normilize.css"/>
-	<link rel="stylesheet" href="form-window.css"/>
+	<link rel="stylesheet" href="components/form-window/form-window.css"/>
 	<meta charset="UTF-8"/>
 	<title>Registration</title>
 </head>
 <body>
-<main class="form-window__authorization-page">
-	<div class="form-window_long">
-		<div class="form-window__tittle">Регистрация</div>
-		<form class="form-window__login-form" method="post" name="registration">
-			<div class="form-window__login-form__row">
-				<div class="form-window__login-form__item">
-					<label for="first_name">Имя</label>
-					<input
-							type="text"
-							id="first_name"
-							name="first_name"
-							placeholder="Введите имя"
-					/>
-				</div>
-				<div class="form-window__login-form__item">
-					<label for="second_name">Фамилия</label>
-					<input
-							type="text"
-							id="second_name"
-							name="second_name"
-							placeholder="Введите фамилию"
-					/>
-				</div>
-			</div>
-			<div class="form-window__login-form__item">
-				<label for="login">Логин</label>
-				<input
-						type="text"
-						id="login"
-						name="login"
-						placeholder="Введите логин"
-				/>
-			</div>
-			<div class="form-window__login-form__item">
-				<label for="password">Пароль</label>
-				<input
-						type="password"
-						id="password"
-						name="password"
-						placeholder="Введите пароль"
-				/>
-			</div>
-			<div class="form-window__login-form__item">
-				<label for="email">Почта</label>
-				<input
-						type="email"
-						id="email"
-						name="email"
-						placeholder="Введите аддрес электронной почты"
-				/>
-			</div>
-			<div class="form-window__login-form__item">
-				<label for="phone">Телефон</label>
-				<input
-						type="tel"
-						id="phone"
-						name="phone"
-						placeholder="0(123) 456 78 90"
-				/>
-			</div>
-		</form>
-		<div class="form-window__button-col">
-			<button
-					class="form-window__button"
-					id="submit-button"
-					data-form-name="registration"
-			>
-				Зарегистрироваться
-			</button>
-			<div class="form-window__button_empty"><a href="authorization.html">Создать аккаунт</a></div>
-		</div>
-	</div>
-</main>
-<script type="text/javascript" src="js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"
+        integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw=="
+        crossorigin="anonymous">
+</script>
+<script type="module" src="js/registration.js"></script>
 </body>
 </html>

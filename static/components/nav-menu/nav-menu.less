@@ -1,0 +1,30 @@
+.nav-menu {
+  grid-area: nav;
+  display: flex;
+  flex-direction: column;
+  background-color: #353535;
+  min-height: calc(100vh - 70px);
+  &__scrollable {
+    max-height: calc(100vh - 140px);
+    overflow: auto;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: none;
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #252525;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      outline: none;
+    }
+  }
+}
+
+@import "../nav-list/nav-list";
+@import "../user-bar/user-bar";

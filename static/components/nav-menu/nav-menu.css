@@ -1,0 +1,26 @@
+.nav-menu {
+  grid-area: nav;
+  display: flex;
+  flex-direction: column;
+  background-color: #353535;
+  min-height: calc(100vh - 70px);
+}
+.nav-menu__scrollable {
+  max-height: calc(100vh - 140px);
+  overflow: auto;
+}
+.nav-menu__scrollable::-webkit-scrollbar {
+  width: 10px;
+}
+.nav-menu__scrollable::-webkit-scrollbar-track {
+  box-shadow: none;
+  background-color: transparent;
+}
+.nav-menu__scrollable::-webkit-scrollbar-thumb {
+  background-color: #252525;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  outline: none;
+}
+/*# sourceMappingURL=nav-menu.css.map */
