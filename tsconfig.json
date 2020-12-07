@@ -4,14 +4,17 @@
     "module": "ES2015",
     "noImplicitAny": true,
     "noUnusedLocals": true,
+    "outDir": "src/js",
     "noUnusedParameters": true,
     "alwaysStrict": true,
     "strictNullChecks": true,
     "sourceMap": true,
-    "typeRoots": ["static/js"]
+    "typeRoots": [
+      "src/script"
+    ]
   },
   "include": [
-    "static/js/*", "static/components/*", "static/components/*/*"
+    "src/script/*", "src/components/*", "src/components/*/*"
   ],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

@@ -1,0 +1,31 @@
+.settings-item {
+  display: flex;
+  align-items: center;
+  font-family: Arial, serif;
+  font-size: 12pt;
+  color: #eeeeee;
+  height: 35px;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.settings-item_active,
+.settings-item:hover {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #505050;
+}
+.settings-item .settings-nav__icon {
+  color: #e5e5e5;
+  font-size: 25px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.settings-item:hover .settings-nav__icon {
+  color: #0080ff;
+}
+/*# sourceMappingURL=settings-item.css.map */
