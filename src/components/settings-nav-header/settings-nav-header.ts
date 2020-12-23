@@ -13,7 +13,7 @@ interface Props {
 export default class SettingsHead extends Block {
 	props:Props;
 	constructor(props: Props,  classList: string,parent:string='',) {
-		super('div', props,parent, template, `nav-search ${classList}`);
+		super(props,'div', parent, template, `nav-search ${classList}`);
 	}
 
 	componentDidMount() {

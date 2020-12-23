@@ -7,7 +7,7 @@ export default '<div class="profile-settings__image">' +
 '<form class="profile-settings__form" method="post" name="profile-info">' +
 '<div class="profile-settings__form__input-list">' +
 '<input type="file" id="avatar" name="avatar" hidden/>' +
-'{{#formItems this.settingsFormInputs}}' +
+'{{#formItems this.formInputs}}' +
 '<div class="form-window__login-form__row" id="{{id}}-container"></div>' +
 '{{/formItems}}' +
 '</div>' +

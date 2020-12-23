@@ -5,7 +5,7 @@ export default class SettingsItem extends Block {
 
 
 	constructor(props: {},classList: string = 'settings-item', parent: string = '', tag: string = 'li') {
-		super(tag, props, parent, template, classList);
+		super(props,tag,  parent, template, classList);
 	}
 
 	render(): string {

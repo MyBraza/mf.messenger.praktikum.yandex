@@ -3,10 +3,10 @@ import template from "./template.js";
 
 export default class FormInput extends Block {
 	constructor(props: {}, classList: string, parent = '') {
-		super('div', props, parent, template, `form-input ${classList}`);
+		super(props,'div',  parent, template, `form-input ${classList}`);
 		const input = this._element?.querySelector('input');
-		input?.addEventListener('focus', this.validator.bind(this));
-		input?.addEventListener('blur', this.validator.bind(this));
+		input?.addEventListener('focus', this.validator);
+		input?.addEventListener('blur', this.validator);
 	}
 
 	validator = (event: Event | null = null): boolean => {

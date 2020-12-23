@@ -8,6 +8,6 @@ export default '<form class="form-window {{classExtension}}"' +
 '{{/formItems}}' +
 '		</div>' +
 '		<div class="form-window__buttons form-window__buttons_col">' +
-'		<div class="form-button form-button_empty"><a href="{{link.href}}">{{link.text}}</a></div>' +
+'		<div class="form-button form-button_empty"><div class="form-button__link">{{link.text}}</div></div>' +
 '	</div>' +
 '	</form>'

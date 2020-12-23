@@ -10,11 +10,11 @@
     "strictNullChecks": true,
     "sourceMap": true,
     "typeRoots": [
-      "src/script"
+      "src/utils"
     ]
   },
   "include": [
-    "src/script/*", "src/components/*", "src/components/*/*"
+    "src/script/*", "src/utils/*", "src/components/*", "src/components/*/*", "src/*"
   ],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

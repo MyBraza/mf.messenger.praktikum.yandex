@@ -3,7 +3,7 @@ import template from "./template.js";
 
 export default class NavSearch extends Block{
     constructor(props: {},  classList: string,parent:string='',) {
-        super('div', props,parent, template, `nav-search ${classList}`);
+        super(props,'div', parent, template, `nav-search ${classList}`);
     }
 
     render(): string {

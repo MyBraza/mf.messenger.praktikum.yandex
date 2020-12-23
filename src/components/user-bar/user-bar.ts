@@ -13,12 +13,12 @@ export default class UserBar extends Block {
 	props: Props;
 
 	constructor(props: Props, classList: string = '', parent: string = '') {
-		super('div', props, parent, template, `user-bar ${classList}`);
+		super( props,'div', parent, template, `user-bar ${classList}`);
 	}
 
 	componentDidMount() {
 		const cogButtonCallback = this.props.cogButtonCallback ? this.props.cogButtonCallback : () => {
-			console.log('click on cog button')
+			console.log('click on cog button, no callback');
 		};
 		this._element?.addEventListener('click', event => {
 			event.preventDefault();

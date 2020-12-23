@@ -27,7 +27,7 @@ export default class ChatFeed extends Block {
 	props: Props;
 
 	constructor(props: Props, classList: string = '', parent: string = '', tag: string = 'main') {
-		super(tag, props, parent, template, `chat-feed ${classList}`);
+		super(props, tag,  parent, template, `chat-feed ${classList}`);
 	}
 
 	componentDidMount() {

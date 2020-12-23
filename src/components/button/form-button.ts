@@ -18,7 +18,7 @@ Handlebars.registerHelper('properties', function (context, options) {
 
 export default class FormButton extends Block {
 	constructor(props: {}, callback: (() => void)|undefined, classList: string = '', parent = '') {
-		super('div', props, parent, template, `form-button-container ${classList}`);
+		super(props,'div',  parent, template, `form-button-container ${classList}`);
 		this._element?.addEventListener('click', event => {
 			if (callback) {
 				event.preventDefault();

@@ -38,8 +38,9 @@
   order: 2;
   outline: none;
 }
-.form-button_empty a {
+.form-button_empty .form-button__link {
   color: #eeeeee;
+  cursor: pointer;
 }
 .form-button_empty:hover {
   text-decoration: underline;

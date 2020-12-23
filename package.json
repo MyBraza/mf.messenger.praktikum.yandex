@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tsc && node server.js",
-    "start": "tsc"
+    "start": "npm run build && node server.js",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

@@ -19,7 +19,7 @@ export default class NavList extends Block {
 
 	constructor(props: Props, callback: (element: HTMLElement) => void = () => {
 	}, classList: string = '', parent: string = '', tag: string = 'ul') {
-		super(tag, props, parent, template, `nav-list ${classList}`);
+		super(props, tag, parent, template, `nav-list ${classList}`);
 		const items = this._element?.getElementsByTagName('li');
 		if (items) {
 			for (let i = 0; i < items?.length; i++) {

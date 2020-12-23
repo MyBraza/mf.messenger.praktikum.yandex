@@ -26,7 +26,7 @@ class Block {
 	compile = Handlebars.compile;
 	template: string;
 
-	constructor(tagName = "div", props = {}, parent: string, template: string, classList = '',) {
+	constructor(props = {}, tagName = "div", parent: string = 'body', template: string = '', classList = '',) {
 		this.eventBus = new EventBus();
 		this._meta = {
 			tagName,
@@ -54,7 +54,7 @@ class Block {
 		const {tagName} = this._meta;
 		const {classList} = this._meta;
 		this._element = this._createDocumentElement(tagName);
-		if (classList !== '' && classList !== undefined) {
+		if (!!classList) {
 			const classNames = classList.split(' ').filter(item => item !== '');
 			this._element.classList.add(...classNames);
 		}
@@ -172,14 +172,14 @@ class Block {
 
 	show() {
 		const el = this.getElement();
-		if (el !== undefined) {
+		if (!!el) {
 			el.style.display = "";
 		}
 	}
 
 	hide() {
 		const el = this.getElement();
-		if (el !== undefined) {
+		if (!!el) {
 			el.style.display = "none";
 		}
 	}

@@ -16,7 +16,7 @@ export default class ChatFeedHeader extends Block{
     contact: chatItem;
     props: Props;
     constructor(props: Props, classList: string,parent: string = '',) {
-        super('div', props, parent, template, `chat-feed-header ${classList}`);
+        super( props, 'div', parent, template, `chat-feed-header ${classList}`);
     }
 
     componentDidMount() {

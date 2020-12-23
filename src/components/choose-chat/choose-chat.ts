@@ -3,7 +3,7 @@ import template from "./template.js";
 
 export default class ChooseChat extends Block {
 	constructor(props: {}, classList: string, parent: string = '',) {
-		super('div', props, parent, template, classList);
+		super(props,'div',  parent, template, classList);
 	}
 
 	render(): string {

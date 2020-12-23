@@ -14,10 +14,11 @@ interface Props {
 	}
 	userBar: {
 		render: {
-		[key: string]: string}
-		cogButtonCallback?: ()=>void
+			[key: string]: string
+		}
+		cogButtonCallback?: () => void
 	}
-	chooseItem?: (element:HTMLElement)=>void;
+	chooseItem?: (element: HTMLElement) => void;
 	render?: {
 		list: string
 		userBar: string
@@ -33,7 +34,7 @@ export default class NavMenu extends Block {
 	props: Props;
 
 	constructor(props: Props, classList: string, parent: string = '', tag = 'aside') {
-		super(tag, props, parent, template, `nav-menu ${classList}`);
+		super(props, tag, parent, template, `nav-menu ${classList}`);
 		this._attach();
 	}
 
