@@ -1,34 +1,29 @@
 import Block from "../block.js";
 import template from "./template.js";
-import navList from "../nav-list/nav-list.js";
+import NavList from "../nav-list/nav-list.js";
 import UserBar from "../user-bar/user-bar.js";
+import NavListSettings from "../nav-list-settings/nav-list-settings.js";
 
 interface Props {
-	list: {
-		items: {
-			[key: string]: {
-				[key: string]: string;
-			}
+	type?: string
+	items: {
+		[key: string]: {
+			[key: string]: string;
 		}
-		type?: string;
 	}
+
 	userBar: {
-		render: {
+		attributes: {
 			[key: string]: string
 		}
 		cogButtonCallback?: () => void
 	}
-	chooseItem?: (element: HTMLElement) => void;
-	render?: {
-		list: string
-		userBar: string
-	};
-	currentMenu?: string;
+	chooseItem?: (arg: unknown) => void;
 }
 
 export default class NavMenu extends Block {
 	childBlocks: {
-		list: navList;
+		list: NavList | NavListSettings;
 		userBar: UserBar;
 	};
 	props: Props;
@@ -39,15 +34,23 @@ export default class NavMenu extends Block {
 	}
 
 	componentDidMount() {
-		const {userBar, chooseItem, list} = this.props;
+		const {userBar, chooseItem, items} = this.props;
 		this.childBlocks.userBar = new UserBar(userBar);
-		this.childBlocks.list = new navList(list, chooseItem, 'nav-menu__list', '.nav-menu__scrollable');
+		if (this.props.type === 'settings') {
+			this.childBlocks.list = new NavListSettings({items}, 'nav-menu__list', '.nav-menu__scrollable')
+		}
+		if (this.props.type === 'chats') {
+			this.childBlocks.list = new NavList({
+				items,
+				callback: chooseItem
+			}, 'nav-menu__list', '.nav-menu__scrollable');
+		}
+
+
+
 	}
 
 	render(): string {
-		const {userBar, list} = this.props;
-		this.childBlocks.userBar.setProps(userBar);
-		this.childBlocks.list.setProps(list);
 		let element = this.compile(this.template);
 		return element({listContainer: 'nav-menu__scrollable'});
 	}

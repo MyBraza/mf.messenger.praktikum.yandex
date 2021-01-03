@@ -1,5 +1,5 @@
-import Route from "./route.js";
-import Block from "../components/block.js";
+import Route from "./route";
+import Block from "../components/block";
 
 interface Props {
 	[key: string]: unknown
@@ -14,7 +14,7 @@ class Router {
 	_rootPath: string;
 	_error404: string;
 
-	public static getInstance(...args:Array<string|undefined>): Router {
+	public static getInstance(...args: Array<string | undefined>): Router {
 		if (!Router.__instance) {
 			Router.__instance = new Router(...args);
 		}
@@ -22,7 +22,7 @@ class Router {
 		return Router.__instance;
 	}
 
-	constructor(rootQuery: string = 'body', rootPath: string = '/home', error404:string = '/error404') {
+	constructor(rootQuery: string = 'body', rootPath: string = '/home', error404: string = '/error404') {
 		if (Router.__instance) {
 			return Router.__instance;
 		}
@@ -35,7 +35,7 @@ class Router {
 		Router.__instance = this;
 	}
 
-	use(pathname: string, block: typeof Block, props:Props) {
+	use(pathname: string, block: typeof Block, props: Props) {
 		const route = new Route(pathname, block, this._rootQuery, props);
 		this.routes.push(route);
 		return this
@@ -52,15 +52,15 @@ class Router {
 		this._onRoute(window.location.pathname);
 	}
 
-	_onRoute(pathname:string) {
-		if(pathname === '' || pathname === '/'){
+	_onRoute(pathname: string) {
+		if (pathname === '' || pathname === '/') {
 			pathname = this._rootPath;
 		}
 		let route = this.getRoute(pathname);
 
 		if (!route) {
 			route = this.getRoute(this._error404);
-			if(!route){
+			if (!route) {
 				return
 			}
 		}
@@ -73,9 +73,11 @@ class Router {
 		route.render();
 	}
 
-	go(pathname:string = this._rootPath) {
-		this.history.pushState({}, "", pathname);
-		this._onRoute(pathname);
+	go(pathname: string = this._rootPath) {
+		if (window.location.pathname !== pathname) {
+			this.history.pushState({}, "", pathname);
+			this._onRoute(pathname);
+		}
 	}
 
 	back() {
@@ -86,7 +88,7 @@ class Router {
 		this.history.forward();
 	}
 
-	getRoute(pathname:string) {
+	getRoute(pathname: string) {
 		return this.routes.find(route => route.match(pathname));
 	}
 }

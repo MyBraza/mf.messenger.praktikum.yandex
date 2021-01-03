@@ -123,6 +123,7 @@ li:last-child .form-input {
   flex-direction: column;
 }
 .form-button-container {
+  font-family: Arial, serif;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -161,6 +162,7 @@ li:last-child .form-input {
   border: none;
   order: 2;
   outline: none;
+  cursor: pointer;
 }
 .form-button_empty .form-button__link {
   color: #eeeeee;
@@ -169,6 +171,5 @@ li:last-child .form-input {
 .form-button_empty:hover {
   text-decoration: underline;
   background-color: transparent;
-  cursor: auto;
 }
 /*# sourceMappingURL=form-window.css.map */

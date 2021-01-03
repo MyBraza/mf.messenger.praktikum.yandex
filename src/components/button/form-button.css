@@ -1,4 +1,5 @@
 .form-button-container {
+  font-family: Arial, serif;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -37,6 +38,7 @@
   border: none;
   order: 2;
   outline: none;
+  cursor: pointer;
 }
 .form-button_empty .form-button__link {
   color: #eeeeee;
@@ -45,6 +47,5 @@
 .form-button_empty:hover {
   text-decoration: underline;
   background-color: transparent;
-  cursor: auto;
 }
 /*# sourceMappingURL=form-button.css.map */

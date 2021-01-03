@@ -1,28 +1,21 @@
 import Block from "../block.js";
 import template from "./template.js";
 
-Handlebars.registerHelper('properties', function (context, options) {
-	let cells = [];
-	let html;
-	for (let k in context) {
-		if (context.hasOwnProperty(k)) {
-			html = options.fn({
-				key: k,
-				value: context[k]
-			});
-			cells.push(html);
-		}
-	}
-	return cells.join('');
-});
-
 export default class FormButton extends Block {
-	constructor(props: {}, callback: (() => void)|undefined, classList: string = '', parent = '') {
-		super(props,'div',  parent, template, `form-button-container ${classList}`);
+	props: {
+		callback?: (() => void),
+		[key: string]: unknown
+	};
+
+	constructor(props: {}, classList: string = '', parent = '') {
+		super(props, 'div', parent, template, `form-button-container ${classList}`);
+	}
+
+	componentDidRender() {
 		this._element?.addEventListener('click', event => {
-			if (callback) {
+			if (this.props.callback) {
 				event.preventDefault();
-				callback();
+				this.props.callback();
 			}
 		});
 	}

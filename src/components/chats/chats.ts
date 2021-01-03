@@ -6,6 +6,10 @@ import ChooseChat from "../choose-chat/choose-chat.js";
 import NavMenu from "../nav-menu/nav-menu.js";
 import ChatFeed from "../chat-feed/chat-feed.js";
 import Router from "../../utils/router.js";
+import ChatsController from "../../utils/chats-controller";
+import paths from "../../utils/paths.js";
+import store from "../../utils/store";
+import ChatSettings from "../chat-settings/chat-settings";
 
 interface Props {
 	search: {
@@ -14,14 +18,8 @@ interface Props {
 		placeholder: string;
 		value?: string;
 	}
-	chatsList: {
-		[key: string]: Array<{ [key: string]: string }>
-	}
 	messageInput: {
 		[key: string]: string;
-	}
-	contacts: {
-		[key: string]: { [key: string]: string }
 	}
 	userBar: {
 		[key: string]: string
@@ -32,7 +30,6 @@ interface Props {
 	render?: {
 		[key: string]: string
 	}
-	currentChat?: string;
 
 	[key: string]: unknown
 }
@@ -45,66 +42,100 @@ export default class Chats extends Block {
 		chooseChat: ChooseChat;
 		navMenu: NavMenu;
 		chatFeed: ChatFeed;
+		chatSettings: ChatSettings;
 		[key: string]: Block;
 	};
-	_currentChat: string;
+	controller: ChatsController;
+	_currentChatId: string | undefined;
 
 	constructor(props: Props, classList: string = 'grid', parent: string = 'body',) {
 		super(props, 'div', parent, template, classList);
-		this._attach();
 		this.showChatFeed();
+		store.subscribe(this.currentChatSubscriber, 'chats');
 	}
 
+	currentChatSubscriber = (chats: Array<{ [key: string]: string }>) => {
+		const chat = chats?.find(value => value.id === this._currentChatId);
+		if (chat) {
+			this.childBlocks.feedHeader.setProps({chat});
+			this.childBlocks.chatFeed.setProps({chat});
+		} else {
+			this._currentChatId = undefined;
+			this.showChooseChat();
+		}
+	};
+
 	showChooseChat() {
+		this.childBlocks.chatSettings.hide();
 		this.childBlocks.chatFeed.hide();
 		this.childBlocks.chooseChat.show();
 	}
 
-	openChat = (id: string = 'none') => {
-		this._currentChat = id;
-		this.childBlocks.feedHeader.setProps({contact: this.props.contacts[this._currentChat],});
-		this.childBlocks.chatFeed.setProps({currentChat: this._currentChat,});
+	openChat = (chat: { [key: string]: string }) => {
+		this._currentChatId = chat.id;
+		this.childBlocks.feedHeader.setProps({chat});
+		this.childBlocks.chatSettings.setProps({chat});
 		this.showChatFeed();
 	};
 
 	showChatFeed() {
 		this.showChooseChat();
-		if (this.props.contacts[this._currentChat]) {
+		if (!!this._currentChatId) {
 			this.childBlocks.chooseChat.hide();
 			this.childBlocks.chatFeed.show();
 		}
 	}
 
+	showChatSettings() {
+		this.showChooseChat();
+		if (!!this._currentChatId) {
+			this.childBlocks.chooseChat.hide();
+			this.childBlocks.chatSettings.show();
+		}
+	}
+
+	componentDidRender() {
+		this._attach();
+	}
+
 	componentDidMount() {
-		const {currentChat, search, contacts, chooseChat, userBar, chatsList, messageInput} = this.props;
-		this._currentChat = currentChat ? currentChat : '';
+		const {search, chooseChat, userBar, messageInput} = this.props;
+		this.controller = new ChatsController;
+		this.childBlocks.chatSettings = new ChatSettings({chat: {}}, '');
 		this.childBlocks.searchInput = new NavSearch(search, 'grid__nav-head');
-		this.childBlocks.feedHeader = new ChatFeedHeader({contact: contacts[this._currentChat]}, 'grid__content-head');
+		this.childBlocks.feedHeader = new ChatFeedHeader({
+			chat: {}, onMenuIcon: () => {
+				this.showChatSettings();
+			}
+		}, 'grid__content-head');
 		this.childBlocks.chooseChat = new ChooseChat(chooseChat, 'grid__content chat-feed');
 		this.childBlocks.navMenu = new NavMenu({
-			list: {items: contacts},
+			type: 'chats',
+			items: {},
 			userBar: {
-				render: userBar,
+				attributes: userBar,
 				cogButtonCallback: () => {
-					Router.getInstance().go('/settings')
+					Router.getInstance().go(paths.settings)
 				}
 			},
-			chooseItem: (element: HTMLElement) => {
-				const id = element.dataset.id;
-				console.log(id);
-				this.openChat(id);
+			chooseItem: (chat: { [key: string]: string }) => {
+				this.openChat(chat);
 			},
 		}, 'grid__nav state_chats');
 		this.childBlocks.chatFeed = new ChatFeed({
-			list: chatsList,
 			messageInput: messageInput,
-			contacts: contacts,
+			chat: {},
 			user: userBar,
-			currentChat: this._currentChat,
 			noCurrentChat: () => {
 				this.showChooseChat();
 			},
 		}, 'grid__content');
+	}
+
+	show() {
+		super.show();
+		this.controller.getPageData();
+		this.showChatFeed();
 	}
 
 	render(): string {

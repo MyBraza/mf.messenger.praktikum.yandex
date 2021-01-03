@@ -1,12 +1,15 @@
-import Router from "./utils/router.js";
-import FormWindow from "./components/form-window/form-window.js";
-import ErrorPage from "./components/error-page/error-page.js";
-import Chats from "./components/chats/chats.js";
-import Settings from "./components/settings/settings.js";
+import Router from "./utils/router";
+import FormWindow from "./components/form-window/form-window";
+import ErrorPage from "./components/error-page/error-page";
+import Chats from "./components/chats/chats";
+import Settings from "./components/settings/settings";
+import HTTPRequest from "./utils/HTTPRequest";
+import paths from "./utils/paths";
 
 const authorization = {
 	tittle: 'Вход',
 	classExtension: '',
+	requestURL: '/auth/signin',
 	items: {
 		login:
 			{
@@ -40,6 +43,7 @@ const authorization = {
 const registration = {
 	tittle: 'Регистрация',
 	classExtension: 'form-window_long',
+	requestURL: '/auth/signup',
 	items: {
 		first_name: {
 			tittle: 'Имя',
@@ -104,45 +108,15 @@ const chats = {
 		icon: 'icon-search',
 		placeholder: 'Поиск'
 	},
-	chatsList: {
-		id1: [{sender: 'user', contentText: 'test1', date: 'Вчера, в 17:29'},
-			{sender: 'id1', contentText: 'test2', date: 'Вчера, в 17:30'},
-			{sender: 'user', contentText: 'test1', date: 'Вчера, в 17:29'},
-			{sender: 'id1', contentText: 'test2', date: 'Вчера, в 17:30'},],
-		id2: [{sender: 'user', contentText: 'afsdfasdf', date: 'Вчера, в 17:29'},
-			{sender: 'id2', contentText: 'asdfasdf', date: 'Вчера, в 17:30'},
-			{sender: 'user', contentText: 'asdfasdfasd', date: 'Вчера, в 17:29'},
-			{sender: 'id2', contentText: 'asdfasdfas', date: 'Вчера, в 17:30'},
-			{sender: 'user', contentText: 'asdfasdfasd', date: 'Вчера, в 17:29'},
-			{sender: 'id2', contentText: 'asdfasdfs', date: 'Вчера, в 17:30'},],
-	},
 	messageInput: {
 		formName: 'message-input',
 		pasteIcon: 'icon-plus-circled',
 		placeholder: 'Введите текст сообщения',
 		sendIcon: 'icon-angle-circled-right',
 	},
-	contacts: {
-		id1: {
-			status: 'dont-disturb',
-			icon: 'icon-circle',
-			imgURL: 'img/austin-distel-5hAVfzXs7GY-unsplash-min.jpg',
-			displayName: 'Илон Маск',
-			text: 'Lorem ipsum dolor sit amet.',
-		},
-		id2: {
-			status: 'away',
-			icon: 'icon-circle',
-			imgURL: 'img/20170629_103915-min.jpg',
-			displayName: 'Петр Винник',
-			text: 'Lorem ipsum dolor sit amet.',
-		},
-	},
 	userBar: {
 		imgURL: 'img/alex-suprun-ZHvM3XIOHoE-unsplash-min.jpg',
 		icon: 'icon-circle',
-		displayName: 'Иван Иванов',
-		email: 'pochta@yandex.ru',
 		settingsIcon: 'icon-cog',
 	},
 	chooseChat: {
@@ -164,17 +138,17 @@ const settings = {
 		userSettings: {
 			icon: 'icon-id-card',
 			tittle: 'Информация о пользователе',
+			path: paths.settings
 		},
 		logOut: {
 			icon: 'icon-logout',
 			tittle: 'Выйти',
+			path: paths.authorization
 		}
 	},
 	userBar: {
 		imgURL: 'img/alex-suprun-ZHvM3XIOHoE-unsplash-min.jpg',
 		icon: 'icon-circle',
-		displayName: 'Иван Иванов',
-		email: 'pochta@yandex.ru',
 		settingsIcon: 'icon-cog',
 	},
 	userSettings: {
@@ -194,7 +168,8 @@ const settings = {
 				tittle: 'Отображаемое имя',
 				type: 'text',
 				placeholder: 'Введите имя',
-				with: 'login'
+				with: 'login',
+				required: 'false'
 			},
 			login: {
 				tittle: 'Логин',
@@ -216,12 +191,14 @@ const settings = {
 				tittle: 'Новый пароль',
 				type: 'password',
 				placeholder: 'Введите пароль',
-				with: 'oldPassword'
+				with: 'oldPassword',
+				required: 'false'
 			},
 			oldPassword: {
 				tittle: 'Старый пароль',
 				type: 'password',
 				placeholder: 'Введите пароль',
+				required: 'false'
 			},
 		},
 		buttons: {
@@ -246,13 +223,15 @@ const settings = {
 	}
 };
 
+HTTPRequest.baseURL = 'https://ya-praktikum.tech/api/v2';
 const router = new Router('body', '/authorization');
 
+
 router
-	.use('/authorization', FormWindow, authorization)
-	.use('/error404', ErrorPage, error404)
-	.use('/error500', ErrorPage, error500)
-	.use('/registration', FormWindow, registration)
-	.use('/chats', Chats, chats)
-	.use('/settings', Settings, settings)
+	.use(paths.settings, Settings, settings)
+	.use(paths.authorization, FormWindow, authorization)
+	.use(paths.error404, ErrorPage, error404)
+	.use(paths.error500, ErrorPage, error500)
+	.use(paths.registration, FormWindow, registration)
+	.use(paths.chats, Chats, chats)
 	.start();

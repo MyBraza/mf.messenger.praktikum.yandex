@@ -1,11 +1,13 @@
-import EventBus from './event-bus.js';
+import EventBus from '../utils/event-bus';
+import setByPath from "../utils/set-by-path";
 
 class Block {
 	static EVENTS = {
 		INIT: "init",
 		FLOW_CDM: "flow:component-did-mount",
 		FLOW_RENDER: "flow:render",
-		FLOW_CDU: "flow:component-did-update"
+		FLOW_CDU: "flow:component-did-update",
+		FLOW_CDR: 'flow:component-did-render'
 	};
 
 	_element: HTMLElement | null;
@@ -48,6 +50,7 @@ class Block {
 		eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+		eventBus.on(Block.EVENTS.FLOW_CDR, this._componentDidRender.bind(this));
 	}
 
 	_createResources() {
@@ -58,6 +61,11 @@ class Block {
 			const classNames = classList.split(' ').filter(item => item !== '');
 			this._element.classList.add(...classNames);
 		}
+	}
+
+	subscriber(data: unknown) {
+		console.log(data);
+		return
 	}
 
 	init() {
@@ -86,16 +94,23 @@ class Block {
 		return JSON.stringify(oldProps) !== JSON.stringify(newProps);
 	}
 
-	setProps = (nextProps: { [key: string]: unknown }) => {
-		if (!nextProps) {
-			return;
-		}
-		Object.assign(this.props, nextProps);
-	};
-
 	get element() {
 		if (this._element !== null) {
 			return this._element;
+		}
+	}
+
+	_detach() {
+		for (let key in this.childBlocks) {
+			let root;
+			if (this.childBlocks[key].parent !== '')
+				root = this._element?.querySelector(this.childBlocks[key].parent);
+			root = root ? root : this._element;
+			let block = this.childBlocks[key];
+			let el = block.getElement();
+			if (el !== undefined && root !== null) {
+				root?.removeChild(el);
+			}
 		}
 	}
 
@@ -117,10 +132,17 @@ class Block {
 		const render: string = this.render();
 		if (this._element !== null) {
 			this._element.innerHTML = render;
+			this.eventBus.emit(Block.EVENTS.FLOW_CDR);
 		}
 	}
 
-// Может переопределять пользователь, необязательно трогать
+	_componentDidRender() {
+		this.componentDidRender();
+	}
+
+	componentDidRender() {
+	}
+
 	render(): string {
 		return '';
 	}
@@ -132,6 +154,10 @@ class Block {
 	getElement() {
 		return this.element;
 	}
+
+	setProps = (nextProps: unknown, path: string | undefined = undefined) => {
+		setByPath(<{ [key: string]: unknown }>this.props, nextProps, path);
+	};
 
 	_makePropsProxy(props: {}) {
 		const self = this;
@@ -162,10 +188,7 @@ class Block {
 		});
 	}
 
-	_createDocumentElement(tagName
-							   :
-							   string
-	) {
+	_createDocumentElement(tagName: string) {
 		// Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
 		return document.createElement(tagName);
 	}
@@ -175,12 +198,18 @@ class Block {
 		if (!!el) {
 			el.style.display = "";
 		}
+		for (let block in this.childBlocks) {
+			this.childBlocks[block].show();
+		}
 	}
 
 	hide() {
 		const el = this.getElement();
 		if (!!el) {
 			el.style.display = "none";
+		}
+		for (let block in this.childBlocks) {
+			this.childBlocks[block].hide();
 		}
 	}
 }

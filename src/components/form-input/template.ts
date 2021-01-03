@@ -5,5 +5,6 @@ export default '<label for="{{id}}">{{this.tittle}}</label>' +
 '	name="{{id}}"' +
 '	placeholder="{{this.placeholder}}"' +
 '   value="{{this.value}}"' +
+'	data-required="{{this.required}}"' +
 '		/>' +
 '<p>Это поле обязательно для заполнения</p>'

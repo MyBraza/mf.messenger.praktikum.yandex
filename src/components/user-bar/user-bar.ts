@@ -1,9 +1,10 @@
 import Block from "../block.js";
 import template from "./template.js";
+import store from "../../utils/store";
 
 interface Props {
 	cogButtonCallback?: () => void;
-	render: {
+	attributes: {
 		settingsIcon?: string;
 		[key: string]: unknown
 	}
@@ -13,8 +14,23 @@ export default class UserBar extends Block {
 	props: Props;
 
 	constructor(props: Props, classList: string = '', parent: string = '') {
-		super( props,'div', parent, template, `user-bar ${classList}`);
+		super(props, 'div', parent, template, `user-bar ${classList}`);
+		store.subscribe(this.subscriber, 'userInfo');
 	}
+
+	subscriber = (userInfo: { [key: string]: unknown }) => {
+		if (!!userInfo) {
+			let {display_name, first_name, second_name, email} = userInfo;
+			display_name = display_name ? display_name : `${first_name} ${second_name}`;
+			this.setProps({
+				attributes: {
+					...this.props.attributes,
+					email: email,
+					displayName: display_name
+				}
+			});
+		}
+	};
 
 	componentDidMount() {
 		const cogButtonCallback = this.props.cogButtonCallback ? this.props.cogButtonCallback : () => {
@@ -22,7 +38,7 @@ export default class UserBar extends Block {
 		};
 		this._element?.addEventListener('click', event => {
 			event.preventDefault();
-			const settingsIcon = this.props.render.settingsIcon ? this.props.render.settingsIcon : 'icon';
+			const settingsIcon = this.props.attributes.settingsIcon ? this.props.attributes.settingsIcon : '';
 			if ((<Element>event.target).classList.contains(settingsIcon))
 				cogButtonCallback();
 		});
@@ -30,6 +46,6 @@ export default class UserBar extends Block {
 
 	render(): string {
 		let element = this.compile(this.template);
-		return element(this.props.render);
+		return element(this.props.attributes);
 	}
 }

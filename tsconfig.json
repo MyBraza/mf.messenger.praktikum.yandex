@@ -4,17 +4,24 @@
     "module": "ES2015",
     "noImplicitAny": true,
     "noUnusedLocals": true,
-    "outDir": "src/js",
+    "rootDir": "./",
+    "outDir": "src/lib",
     "noUnusedParameters": true,
+    "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
     "strictNullChecks": true,
     "sourceMap": true,
-    "typeRoots": [
-      "src/utils"
+    "types": ["handlebars", "mocha", "chai"],
+    "plugins": [
+      {
+        "transform": "@zoltu/typescript-transformer-append-js-extension/output/index.js",
+        "after": true
+      }
     ]
   },
   "include": [
-    "src/script/*", "src/utils/*", "src/components/*", "src/components/*/*", "src/*"
+    "@types/*",
+    "src/**/*"
   ],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "exclude": ["node_modules"]
 }

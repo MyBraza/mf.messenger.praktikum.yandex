@@ -38,7 +38,7 @@
   border-radius: 5px;
   outline: none;
 }
-.nav-list {
+.nav-menu__list {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,6 +46,43 @@
   margin: 0;
   padding: 10px;
   width: 100%;
+}
+.nav-list-settings .active {
+  background-color: #505050;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.settings-item {
+  display: flex;
+  align-items: center;
+  font-family: Arial, serif;
+  font-size: 12pt;
+  color: #eeeeee;
+  height: 35px;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.settings-item_active,
+.settings-item:hover {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #505050;
+}
+.settings-item .settings-nav__icon {
+  color: #e5e5e5;
+  font-size: 25px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.settings-item:hover .settings-nav__icon {
+  color: #0080ff;
 }
 .nav-list .active {
   background-color: #505050;
@@ -64,7 +101,6 @@
   height: 70px;
   padding: 0 10px;
   margin: 2px 0;
-  cursor: pointer;
 }
 .chat-item_active,
 .chat-item:hover {
@@ -88,7 +124,7 @@
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  width: 100%;
+  width: auto;
   height: 100%;
 }
 .chat-item__status {
@@ -122,6 +158,8 @@
 .chat-item__text {
   font-size: 12pt;
   margin-left: 10px;
+  margin-right: 5px;
+  width: 100%;
 }
 .chat-item__name {
   font-size: 12pt;
@@ -132,38 +170,54 @@
 .chat-item__last-message {
   color: #999999;
 }
-.chat-item_static .chat-item__status {
-  background-color: #505050;
-}
-.settings-item {
-  display: flex;
-  align-items: center;
-  font-family: Arial, serif;
-  font-size: 12pt;
-  color: #eeeeee;
-  height: 35px;
-  width: 100%;
-  padding: 5px;
-  margin-bottom: 5px;
-  cursor: pointer;
-  transition-duration: 0.3s;
-}
-.settings-item_active,
-.settings-item:hover {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  background-color: #505050;
-}
-.settings-item .settings-nav__icon {
-  color: #e5e5e5;
+.chat-item__action-icon {
+  margin-left: auto;
   font-size: 25px;
+  color: #e5e5e5;
   margin-right: 10px;
   cursor: pointer;
   transition-duration: 0.3s;
 }
-.settings-item:hover .settings-nav__icon {
-  color: #0080ff;
+.chat-item__action-icon:hover {
+  color: #b7ee97;
+}
+.chat-item_static {
+  cursor: auto;
+}
+.text-input-popup {
+  box-sizing: border-box;
+  font-family: Arial, serif;
+  font-size: 10pt;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  background-color: #252525;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.text-input-popup__input-container {
+  display: flex;
+  align-items: center;
+  background-color: #505050;
+  width: 100%;
+  height: 30px;
+  padding: 0 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.text-input-popup input {
+  border: none;
+  width: 100%;
+  background-color: transparent;
+  color: #eeeeee;
+}
+.text-input-popup input:focus {
+  outline: none;
 }
 .user-bar {
   display: flex;
@@ -375,6 +429,7 @@ li:last-child .form-input {
   flex-direction: column;
 }
 .form-button-container {
+  font-family: Arial, serif;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -413,6 +468,7 @@ li:last-child .form-input {
   border: none;
   order: 2;
   outline: none;
+  cursor: pointer;
 }
 .form-button_empty .form-button__link {
   color: #eeeeee;
@@ -421,7 +477,6 @@ li:last-child .form-input {
 .form-button_empty:hover {
   text-decoration: underline;
   background-color: transparent;
-  cursor: auto;
 }
 .profile-settings {
   grid-area: content-body;
@@ -433,39 +488,6 @@ li:last-child .form-input {
   padding: 30px 20%;
   background-color: #505050;
 }
-.profile-settings__image {
-  position: relative;
-  height: 200px;
-  width: 200px;
-}
-.profile-settings__image img {
-  height: 100%;
-  width: 100%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-}
-.profile-settings__status {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 45px;
-  color: #e5e5e5;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  height: 45px;
-  width: 50px;
-  background-color: #505050;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  cursor: pointer;
-  transition-duration: 0.3s;
-}
-.profile-settings__status:hover {
-  color: #0080ff;
-}
 .profile-settings__form {
   display: flex;
   justify-content: center;
@@ -473,25 +495,12 @@ li:last-child .form-input {
   align-items: center;
   width: 100%;
   height: 100%;
-  margin: 20px 0 0 0;
+  margin: 0;
 }
 .profile-settings__form label {
   font-size: 8pt;
   color: #999999;
   margin-bottom: 5px;
-}
-.profile-settings__form input {
-  font-size: 12pt;
-  color: #eeeeee;
-  background-color: transparent;
-  border: none;
-  border-bottom: 2px solid #0080ff;
-  -webkit-border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
-  border-radius: 5px 5px 0 0;
-  height: 30px;
-  padding: 0 5px;
-  transition-duration: 0.1s;
 }
 .profile-settings__form input:focus {
   outline: none;
@@ -500,5 +509,41 @@ li:last-child .form-input {
 .profile-settings__form__input-list {
   width: 100%;
   margin: 10px 0 0;
+}
+.form-input-image {
+  position: relative;
+  height: 150px;
+  width: 150px;
+  margin-bottom: 20px;
+  order: -1;
+}
+.form-input-image img {
+  height: 100%;
+  width: 100%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.form-input-image__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  color: #e5e5e5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  height: 35px;
+  width: 40px;
+  background-color: #505050;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.form-input-image__button:hover {
+  color: #0080ff;
 }
 /*# sourceMappingURL=settings.css.map */

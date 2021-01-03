@@ -16,6 +16,11 @@ export default class FormInput extends Block {
 		if (!input) {
 			return false;
 		}
+		if (input.value.length === 0 && input.dataset.required === 'false') {
+			input.classList.remove('error');
+			if (alert) alert.style.display = 'none';
+			return true;
+		}
 		if (input.value.length === 0) {
 			input.classList.add('error');
 			if (alert) {

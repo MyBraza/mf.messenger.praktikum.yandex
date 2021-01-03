@@ -1,6 +1,6 @@
-import Block from "../components/block.js";
-import detach from "./detach.js";
-import render from "./render.js";
+import Block from "../components/block";
+import detach from "./detach";
+import render from "./render";
 
 interface Props {
 	[key: string]: unknown
@@ -34,6 +34,7 @@ class Route {
 
 	leave() {
 		if (this._block) {
+			this._block.hide();
 			detach(this._rootQuery, this._block)
 		}
 	}
@@ -46,6 +47,7 @@ class Route {
 		if (!this._block) {
 			this._block = new this._blockClass(this._props);
 		}
+		this._block.show();
 		if (isBlock(this._block)) {
 			render(this._rootQuery, this._block);
 		}

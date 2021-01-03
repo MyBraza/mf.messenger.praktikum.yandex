@@ -1,31 +1,43 @@
 import Block from "../block.js";
 import template from "./template.js";
-import chatItem from "../chat-item/chat-item.js";
+import ChatItem from "../chat-item/chat-item.js";
 
 interface Props {
-    contact: {
-        [key: string] : string,
-    }
-    render?: {
-        [key: string] : string,
-    }
-    [key: string] : unknown
+	chat: {
+		[key: string]: string,
+	}
+	onMenuIcon: ()=>void;
+	render?: {
+		[key: string]: string,
+	}
+
+	[key: string]: unknown
 }
 
-export default class ChatFeedHeader extends Block{
-    contact: chatItem;
-    props: Props;
-    constructor(props: Props, classList: string,parent: string = '',) {
-        super( props, 'div', parent, template, `chat-feed-header ${classList}`);
-    }
+export default class ChatFeedHeader extends Block {
+	childBlocks: {
+		chatItem: ChatItem
+	};
+	props: Props;
 
-    componentDidMount() {
-        this.contact = new chatItem(this.props.contact, 'currentContact', 'chat-item_static');
-    }
+	constructor(props: Props, classList: string, parent: string = '',) {
+		super(props, 'div', parent, template, `chat-feed-header ${classList}`);
+	}
 
-    render(): string {
-        this.contact.setProps(this.props.contact);
-        let element = this.compile(this.template);
-        return element({contact: this.contact.getContent()});
-    }
+	componentDidRender() {
+		this.childBlocks.chatItem.setProps(this.props.chat);
+		this._attach();
+		this._element?.addEventListener('click',()=>{
+			this.props.onMenuIcon();
+		})
+	}
+
+	componentDidMount() {
+		this.childBlocks.chatItem = new ChatItem(this.props.chat, 'chat-item_static');
+	}
+
+	render(): string {
+		let element = this.compile(this.template);
+		return element({});
+	}
 }
