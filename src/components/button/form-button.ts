@@ -11,7 +11,7 @@ export default class FormButton extends Block {
 		super(props, 'div', parent, template, `form-button-container ${classList}`);
 	}
 
-	componentDidRender() {
+	componentDidMount() {
 		this._element?.addEventListener('click', event => {
 			if (this.props.callback) {
 				event.preventDefault();
