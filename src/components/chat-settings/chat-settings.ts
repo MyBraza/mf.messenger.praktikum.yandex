@@ -1,10 +1,10 @@
-import Block from "../block.js";
-import template from "./template.js";
+import Block from "../block";
+import template from "./template";
 import FormInputImage from "../form-input-image/form-input-image";
 import FormInput from "../form-input/form-input";
 import UsersList from "../users-list/users-list";
 import ChatsController from "../../utils/chats-controller";
-import store from "../../utils/store.js";
+import store from "../../utils/store";
 import FormButton from "../button/form-button";
 
 interface Props {

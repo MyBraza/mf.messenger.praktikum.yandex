@@ -1,6 +1,6 @@
-import Block from "../block.js";
-import template from "./template.js";
-import ChatItem from "../chat-item/chat-item.js";
+import Block from "../block";
+import template from "./template";
+import ChatItem from "../chat-item/chat-item";
 
 interface Props {
 	chat: {

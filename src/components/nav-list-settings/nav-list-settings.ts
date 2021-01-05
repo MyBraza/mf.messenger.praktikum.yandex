@@ -1,6 +1,6 @@
-import Block from "../block.js";
-import template from "./template.js";
-import settingsItem from "../settings-item/settings-item.js";
+import Block from "../block";
+import template from "./template";
+import settingsItem from "../settings-item/settings-item";
 
 interface Props {
 	items: {

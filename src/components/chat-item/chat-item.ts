@@ -1,5 +1,5 @@
-import Block from "../block.js";
-import template from "./template.js";
+import Block from "../block";
+import template from "./template";
 
 export default class ChatItem extends Block {
 	props: {

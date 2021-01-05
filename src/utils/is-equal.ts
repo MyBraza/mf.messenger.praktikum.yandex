@@ -2,7 +2,7 @@ type Indexed = { [key: string]: unknown }
 
 function isEqual(a: Indexed, b: Indexed): boolean {
 	let equal = true;
-	if(!a || !b){
+	if (!a || !b) {
 		return false
 	}
 	let keysA = Object.keys(a);
@@ -16,7 +16,7 @@ function isEqual(a: Indexed, b: Indexed): boolean {
 			if (Object.prototype.toString.call(a[key]) === '[object Object]' && Object.prototype.toString.call(b[key]) === '[object Object]') {
 				if (!isEqual(<Indexed>a[key], <Indexed>b[key]))
 					return false
-			} else if (Object.prototype.toString.call(a[key]) === '[object Array]' && Object.prototype.toString.call(b[key]) === '[object Array]') {
+			} else if (Array.isArray(a[key]) && Array.isArray(b[key])) {
 				let arrA = <Array<unknown>>a[key];
 				let arrB = <Array<unknown>>b[key];
 				if (arrA === arrB) return true;

@@ -1,40 +1,26 @@
-import Router from "./router";
 import store from "./store";
 import chatsApi from "../api/chats-api";
 import userApi from "../api/user-api";
-import paths from "./paths";
 
 export default class ChatsController {
 
 	getPageData = () => {
-		userApi.request().then(response => {
-			let data = JSON.parse((<XMLHttpRequest>response).response);
-			if ((<XMLHttpRequest>response).status !== 200) {
-				Router.getInstance().go(paths.authorization);
-				return false;
-			}
+		userApi.request().then(data => {
+			if (!data) return false;
 			store.setState(data, 'userInfo');
-			return true
+			return true;
+
 		}).then((authorized) => {
-			if (authorized) {
-				chatsApi.request().then((response) => {
-					let data = JSON.parse((<XMLHttpRequest>response).response);
-					if ((<XMLHttpRequest>response).status === 200) {
-						store.setState(data, 'chats');
-					}
-					if ((<XMLHttpRequest>response).status === 500) {
-						Router.getInstance().go(paths.error500);
-						throw new Error('500: something went wrong');
-					}
-				});
-			}
+			if (!authorized) return;
+			chatsApi.request().then((data) => {
+				if (data) store.setState(data, 'chats');
+			});
 		})
 	};
 
 	getUsers = (id: string) => {
-		chatsApi.requestUsers(id).then((response) => {
-			let data = JSON.parse((<XMLHttpRequest>response).response);
-			if ((<XMLHttpRequest>response).status === 200) {
+		chatsApi.requestUsers(id).then((data) => {
+			if (data) {
 				store.setState(data, `chat-users`);
 			} else {
 				this.getPageData();
@@ -47,41 +33,32 @@ export default class ChatsController {
 			users: [id],
 			chatId
 		};
-		chatsApi.deleteUser(data).then(response => {
-			if ((<XMLHttpRequest>response).status === 200) {
-				this.getUsers(chatId);
-			}
+		chatsApi.deleteUser(data).then(() => {
+			this.getUsers(chatId);
 		})
 	}
 
-	addUser(id:string, chatId:string) {
+	addUser(id: string, chatId: string) {
 		const data = {
 			users: [id],
 			chatId
 		};
-		chatsApi.addUser(data).then(response => {
-			if ((<XMLHttpRequest>response).status === 200) {
-				this.getUsers(chatId);
-			}
+		chatsApi.addUser(data).then(() => {
+			this.getUsers(chatId);
 		})
 	}
 
 	createChat = (title: string) => {
 		const data = {title};
 
-		chatsApi.create(data).then((response) => {
-			if ((<XMLHttpRequest>response).status === 200) {
-				this.getPageData();
-			}
+		chatsApi.create(data).then(() => {
+			this.getPageData();
 		});
 	};
 
 	searchUser(login: string) {
-		userApi.searchUserByLogin(login).then(response => {
-			if ((<XMLHttpRequest>response).status === 200) {
-				let data = JSON.parse((<XMLHttpRequest>response).response);
-				store.setState(data, `found-users`);
-			}
+		userApi.searchUserByLogin(login).then(data => {
+			if (data) store.setState(data, `found-users`);
 		})
 	}
 

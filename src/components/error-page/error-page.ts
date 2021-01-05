@@ -1,6 +1,6 @@
-import Router from "../../utils/router.js";
-import Block from "../block.js";
-import template from "./template.js";
+import Router from "../../utils/router";
+import Block from "../block";
+import template from "./template";
 
 export default class ErrorPage extends Block {
 	constructor(props: {}, classList: string, parent: string = '',) {

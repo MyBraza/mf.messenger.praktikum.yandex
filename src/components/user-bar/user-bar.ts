@@ -1,5 +1,5 @@
-import Block from "../block.js";
-import template from "./template.js";
+import Block from "../block";
+import template from "./template";
 import store from "../../utils/store";
 
 interface Props {

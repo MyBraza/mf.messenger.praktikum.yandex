@@ -1,12 +1,13 @@
-import EventBus from '../utils/event-bus';
+import EventBus from "../utils/event-bus";
 import setByPath from "../utils/set-by-path";
+import isEqual from "../utils/is-equal";
 
 class Block {
 	static EVENTS = {
-		INIT: "init",
-		FLOW_CDM: "flow:component-did-mount",
-		FLOW_RENDER: "flow:render",
-		FLOW_CDU: "flow:component-did-update",
+		INIT: 'init',
+		FLOW_CDM: 'flow:component-did-mount',
+		FLOW_RENDER: 'flow:render',
+		FLOW_CDU: 'flow:component-did-update',
 		FLOW_CDR: 'flow:component-did-render'
 	};
 
@@ -28,7 +29,13 @@ class Block {
 	compile = Handlebars.compile;
 	template: string;
 
-	constructor(props = {}, tagName = "div", parent: string = 'body', template: string = '', classList = '',) {
+	constructor(
+		props = {},
+		tagName = 'div',
+		parent: string = 'body',
+		template: string = '',
+		classList = ''
+	) {
 		this.eventBus = new EventBus();
 		this._meta = {
 			tagName,
@@ -49,8 +56,8 @@ class Block {
 		eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
-		eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_CDR, this._componentDidRender.bind(this));
+		eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
 	}
 
 	_createResources() {
@@ -64,8 +71,7 @@ class Block {
 	}
 
 	subscriber(data: unknown) {
-		console.log(data);
-		return
+		throw new Error(`Method not implemented\nData=${data}`);
 	}
 
 	init() {
@@ -83,15 +89,15 @@ class Block {
 	}
 
 	_componentDidUpdate(oldProps: {}, newProps: {}) {
-		const response = this.componentDidUpdate(oldProps, newProps);
-		if (response) {
+		const equal = this.componentDidUpdate(oldProps, newProps);
+		if (!equal) {
 			this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
 		}
 	}
 
 	// Может переопределять пользователь, необязательно трогать
 	componentDidUpdate(oldProps: {}, newProps: {}) {
-		return JSON.stringify(oldProps) !== JSON.stringify(newProps);
+		return isEqual(oldProps, newProps);
 	}
 
 	get element() {
@@ -105,7 +111,7 @@ class Block {
 			let root;
 			if (this.childBlocks[key].parent !== '')
 				root = this._element?.querySelector(this.childBlocks[key].parent);
-			root = root ? root : this._element;
+			root = root || this._element;
 			let block = this.childBlocks[key];
 			let el = block.getElement();
 			if (el !== undefined && root !== null) {
@@ -119,7 +125,7 @@ class Block {
 			let root;
 			if (this.childBlocks[key].parent !== '')
 				root = this._element?.querySelector(this.childBlocks[key].parent);
-			root = root ? root : this._element;
+			root = root || this._element;
 			let block = this.childBlocks[key];
 			let el = block.getElement();
 			if (el !== undefined && root !== null) {
@@ -160,14 +166,12 @@ class Block {
 	};
 
 	_makePropsProxy(props: {}) {
-		const self = this;
-
 		return new Proxy(props, {
-			get(target: { [key: string]: unknown }, prop: string) {
+			get: (target: { [key: string]: unknown }, prop: string) => {
 				const value = target[prop];
-				return typeof value === "function" ? value.bind(target) : value;
+				return typeof value === 'function' ? value.bind(target) : value;
 			},
-			set(target: { [key: string]: any }, prop: string, value: any) {
+			set: (target: { [key: string]: any }, prop: string, value: any) => {
 				let oldProp: unknown;
 				if (Object.prototype.toString.call(target[prop]) === '[object Object]') {
 					oldProp = Object.assign({}, target[prop]);
@@ -179,10 +183,10 @@ class Block {
 				} else {
 					target[prop] = value;
 				}
-				self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProp, target[prop]);
+				this.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProp, target[prop]);
 				return true;
 			},
-			deleteProperty() {
+			deleteProperty: () => {
 				throw new Error('нет доступа');
 			},
 		});
@@ -194,9 +198,9 @@ class Block {
 	}
 
 	show() {
-		const el = this.getElement();
+		const el = this._element;
 		if (!!el) {
-			el.style.display = "";
+			el.style.display = '';
 		}
 		for (let block in this.childBlocks) {
 			this.childBlocks[block].show();
@@ -204,9 +208,9 @@ class Block {
 	}
 
 	hide() {
-		const el = this.getElement();
+		const el = this._element;
 		if (!!el) {
-			el.style.display = "none";
+			el.style.display = 'none';
 		}
 		for (let block in this.childBlocks) {
 			this.childBlocks[block].hide();

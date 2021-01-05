@@ -1,6 +1,6 @@
-import Block from "../block.js";
-import template from "./template.js";
-import UserItem from "../user-item/user-item.js";
+import Block from "../block";
+import template from "./template";
+import UserItem from "../user-item/user-item";
 
 interface Props {
 	items?: {

@@ -1,10 +1,10 @@
-import Block from "../block.js";
-import template from "./template.js";
-import arrangeFormInputsHelper from "../../utils/formItemsHelper.js";
-import NavMenu from "../nav-menu/nav-menu.js";
-import SettingsHead from "../settings-nav-header/settings-nav-header.js";
-import ProfileSettings from "../profile-settings/profile-settings.js";
-import Router from "../../utils/router.js";
+import Block from "../block";
+import template from "./template";
+import arrangeFormInputsHelper from "../../utils/formItemsHelper";
+import NavMenu from "../nav-menu/nav-menu";
+import SettingsHead from "../settings-nav-header/settings-nav-header";
+import ProfileSettings from "../profile-settings/profile-settings";
+import Router from "../../utils/router";
 import SettingsController from "./settings-controller";
 import paths from "../../utils/paths";
 

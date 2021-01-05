@@ -1,8 +1,8 @@
-import Block from "../block.js";
-import template from "./template.js";
-import NavList from "../nav-list/nav-list.js";
-import UserBar from "../user-bar/user-bar.js";
-import NavListSettings from "../nav-list-settings/nav-list-settings.js";
+import Block from "../block";
+import template from "./template";
+import NavList from "../nav-list/nav-list";
+import UserBar from "../user-bar/user-bar";
+import NavListSettings from "../nav-list-settings/nav-list-settings";
 
 interface Props {
 	type?: string

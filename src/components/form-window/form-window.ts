@@ -1,10 +1,10 @@
-import Block from "../block.js";
-import template from "./template.js";
-import FormInput from "../form-input/form-input.js";
-import FormButton from "../button/form-button.js";
-import formItemsHelper from "../../utils/formItemsHelper.js";
-import createChildBlocks from "../../utils/create-child-blocks.js";
-import Router from "../../utils/router.js";
+import Block from "../block";
+import template from "./template";
+import FormInput from "../form-input/form-input";
+import FormButton from "../button/form-button";
+import formItemsHelper from "../../utils/formItemsHelper";
+import createChildBlocks from "../../utils/create-child-blocks";
+import Router from "../../utils/router";
 import paths from "../../utils/paths";
 import FormWindowController from "./form-window-controller";
 

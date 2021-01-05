@@ -1,5 +1,5 @@
-import Block from "../block.js";
-import template from "./template.js";
+import Block from "../block";
+import template from "./template";
 import Router from "../../utils/router";
 
 export default class SettingsItem extends Block {

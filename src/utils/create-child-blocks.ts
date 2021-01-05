@@ -1,5 +1,5 @@
-import FormInput from "../components/form-input/form-input.js";
-import Block from "../components/block.js";
+import FormInput from "../components/form-input/form-input";
+import Block from "../components/block";
 
 interface FormInputs {
 	[key: string]: { [key: string]: string }

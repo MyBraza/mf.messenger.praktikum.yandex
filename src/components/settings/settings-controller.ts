@@ -5,14 +5,8 @@ import paths from "../../utils/paths";
 
 export default class SettingsController {
 	getUserInfo() {
-		userApi.request().then(response => {
-			if ((<XMLHttpRequest>response).status !== 200) {
-				store.setState({}, 'userInfo');
-				Router.getInstance().go(paths.authorization);
-				return false;
-			}
-			store.setState(JSON.parse((<XMLHttpRequest>response).response), 'userInfo');
-			return true
+		userApi.request().then(data => {
+			if (data) store.setState(data, 'userInfo');
 		})
 	}
 

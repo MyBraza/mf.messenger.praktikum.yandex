@@ -1,10 +1,10 @@
-import Block from "../block.js";
-import template from "./template.js";
-import FormInput from "../form-input/form-input.js";
-import FormButton from "../button/form-button.js";
-import formItemsHelper from "../../utils/formItemsHelper.js";
-import createChildBlocks from "../../utils/create-child-blocks.js";
-import store from "../../utils/store.js";
+import Block from "../block";
+import template from "./template";
+import FormInput from "../form-input/form-input";
+import FormButton from "../button/form-button";
+import formItemsHelper from "../../utils/formItemsHelper";
+import createChildBlocks from "../../utils/create-child-blocks";
+import store from "../../utils/store";
 import FormInputImage from "../form-input-image/form-input-image";
 
 formItemsHelper();

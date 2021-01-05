@@ -38,35 +38,23 @@ class HTTPRequest {
 		HTTPRequest.__instance = this;
 	}
 
-	get = (url: string, options: Options) => {
-		if (!options) {
-			throw new Error('Options must be defined')
-		}
+	get = (url: string, options: Options = {}) => {
 		const data = options.data ? options.data : {};
 		return this.request(url + queryStringify(<{ [key: string]: unknown }>data),
 			{...options, method: METHODS.GET},
 			options.timeout);
 	};
-	post = (url: string, options: Options) => {
-		if (!options) {
-			throw new Error('Options must be defined')
-		}
+	post = (url: string, options: Options = {}) => {
 		return this.request(url,
 			{...options, method: METHODS.POST},
 			options.timeout);
 	};
-	put = (url: string, options: Options) => {
-		if (!options) {
-			throw new Error('Options must be defined')
-		}
+	put = (url: string, options: Options = {}) => {
 		return this.request(url,
 			{...options, method: METHODS.PUT},
 			options.timeout);
 	};
-	delete = (url: string, options: Options) => {
-		if (!options) {
-			throw new Error('Options must be defined')
-		}
+	delete = (url: string, options: Options = {}) => {
 		return this.request(url,
 			{...options, method: METHODS.DELETE},
 			options.timeout);
@@ -75,19 +63,21 @@ class HTTPRequest {
 	request = (url: string, options: Options, timeout = 5000) => {
 		let {method, data} = options;
 
+		const defaultHeaders: { [key: string]: string } = {
+			"accept": "application/json",
+			"Content-Type": "application/json"
+		};
+
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			method = method ? method : '';
 			xhr.open(method, this.baseURL + url, true);
 			xhr.timeout = timeout;
 			xhr.withCredentials = true;
-			options.headers = options.headers ? options.headers : {
-				"accept": "application/json",
-				"Content-Type": "application/json"
-			};
-			for (let key in options.headers) {
-				if (options.headers.hasOwnProperty(key)) {
-					xhr.setRequestHeader(key, options.headers[key]);
+			const headers = {...options.headers, ...defaultHeaders};
+			for (let key in headers) {
+				if (headers.hasOwnProperty(key)) {
+					xhr.setRequestHeader(key, headers[key]);
 				}
 			}
 

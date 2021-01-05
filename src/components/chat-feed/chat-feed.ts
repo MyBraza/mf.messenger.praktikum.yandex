@@ -1,6 +1,6 @@
-import Block from "../block.js";
-import template from "./template.js";
-import MessageInput from "../message-input/message-input.js";
+import Block from "../block";
+import template from "./template";
+import MessageInput from "../message-input/message-input";
 
 interface Props {
 	messageInput: {

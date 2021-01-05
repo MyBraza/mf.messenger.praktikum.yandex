@@ -34,12 +34,11 @@ class Store {
 	}
 
 	_proxyState(state: State) {
-		const self = this;
 		return new Proxy(state, {
-			get(target: State, prop: string) {
+			get: (target: State, prop: string) => {
 				return target[prop];
 			},
-			set(target: State, prop: string, value: any) {
+			set: (target: State, prop: string, value: any) => {
 				if (Object.prototype.toString.call(value) === '[object Object]') {
 					if (isEqual(<State>target[prop], value)) {
 						return true;
@@ -48,10 +47,10 @@ class Store {
 				} else {
 					target[prop] = value;
 				}
-				self.eventBus.emit(`${Store.EVENTS.FLOW_SDU}_${prop}`, target[prop]);
+				this.eventBus.emit(`${Store.EVENTS.FLOW_SDU}_${prop}`, target[prop]);
 				return true
 			},
-			deleteProperty() {
+			deleteProperty: () => {
 				throw new Error('нет доступа');
 			},
 		});
