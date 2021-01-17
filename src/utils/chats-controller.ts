@@ -92,6 +92,7 @@ export default class ChatsController {
 					store.setState(data, `messages`);
 					return
 				}
+				if (data.type !== 'message') return;
 				let oldData = store.get('messages') as Array<{ [key: string]: unknown }>;
 				oldData = oldData ? [...oldData, data] : [data];
 
