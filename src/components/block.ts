@@ -1,6 +1,7 @@
 import EventBus from "../utils/event-bus";
 import setByPath from "../utils/set-by-path";
 import isEqual from "../utils/is-equal";
+import cloneDeep from "../utils/clone-deep";
 
 class Block {
 	static EVENTS = {
@@ -88,16 +89,8 @@ class Block {
 	componentDidMount() {
 	}
 
-	_componentDidUpdate(oldProps: {}, newProps: {}) {
-		const equal = this.componentDidUpdate(oldProps, newProps);
-		if (!equal) {
-			this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
-		}
-	}
-
-	// Может переопределять пользователь, необязательно трогать
-	componentDidUpdate(oldProps: {}, newProps: {}) {
-		return isEqual(oldProps, newProps);
+	_componentDidUpdate() {
+		this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
 	}
 
 	get element() {
@@ -172,18 +165,15 @@ class Block {
 				return typeof value === 'function' ? value.bind(target) : value;
 			},
 			set: (target: { [key: string]: any }, prop: string, value: any) => {
-				let oldProp: unknown;
-				if (Object.prototype.toString.call(target[prop]) === '[object Object]') {
-					oldProp = Object.assign({}, target[prop]);
-				} else {
-					oldProp = target[prop];
-				}
 				if (Object.prototype.toString.call(value) === '[object Object]') {
-					target[prop] = Object.assign({}, value);
+					if (isEqual(target[prop], value)) {
+						return true;
+					}
+					target[prop] = cloneDeep(value);
 				} else {
 					target[prop] = value;
 				}
-				this.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProp, target[prop]);
+				this.eventBus.emit(Block.EVENTS.FLOW_CDU, target[prop]);
 				return true;
 			},
 			deleteProperty: () => {

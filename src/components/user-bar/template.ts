@@ -1,5 +1,5 @@
 export default '<div class="user-bar__image">' +
-'<img src="{{imgURL}}" alt=""/>' +
+'<img src="{{avatar}}" alt=""/>' +
 '<div class="user-bar__status">' +
 '<i class="{{icon}}"></i>' +
 '    </div>' +

@@ -79,13 +79,6 @@ export default class ChatSettings extends Block {
 		}, '', '.chat-settings__scrollable');
 	}
 
-	show() {
-		super.show();
-		if (this.props.chat.id) {
-			this.controller.getUsers(this.props.chat.id);
-		}
-	}
-
 	render(): string {
 		let form = this.compile(template);
 		return form(this.props);

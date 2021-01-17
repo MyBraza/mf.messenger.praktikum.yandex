@@ -57,10 +57,10 @@ class Store {
 	}
 
 	get = (prop: string) => {
-		return this.state[prop]
+		return this.state[prop];
 	};
 
-	setState = (newState: { [key: string]: unknown }, path: string | undefined = undefined) => {
+	setState = (newState: unknown , path: string | undefined = undefined) => {
 		setByPath(this.state, newState, path);
 	};
 

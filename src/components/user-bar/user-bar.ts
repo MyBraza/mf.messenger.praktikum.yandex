@@ -20,12 +20,12 @@ export default class UserBar extends Block {
 
 	subscriber = (userInfo: { [key: string]: unknown }) => {
 		if (!!userInfo) {
-			let {display_name, first_name, second_name, email} = userInfo;
+			let {display_name, first_name, second_name} = userInfo;
 			display_name = display_name ? display_name : `${first_name} ${second_name}`;
 			this.setProps({
 				attributes: {
 					...this.props.attributes,
-					email: email,
+					...userInfo,
 					displayName: display_name
 				}
 			});

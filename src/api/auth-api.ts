@@ -3,7 +3,7 @@ import HTTPRequest from "../utils/HTTPRequest";
 
 class AuthApi extends BaseAPI {
 	signUp(data: { [key: string]: unknown }) {
-		return HTTPRequest.get('/auth/signup', {data});
+		return HTTPRequest.post('/auth/signup', {data});
 	}
 
 	signIn(data: { [key: string]: unknown }) {

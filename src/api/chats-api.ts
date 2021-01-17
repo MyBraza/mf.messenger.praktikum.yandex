@@ -38,6 +38,15 @@ class ChatsApi extends BaseAPI {
 			}
 		});
 	}
+
+	getToken(id:string) {
+		return HTTPRequest.post(`/chats/token/${id}`).then(response => {
+			if ((<XMLHttpRequest>response).status === 200) {
+				return JSON.parse((<XMLHttpRequest>response).response).token;
+			}
+			return false;
+		});
+	}
 }
 
 export default new ChatsApi();

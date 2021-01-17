@@ -1,6 +1,8 @@
 import Block from "../block";
 import template from "./template";
 import MessageInput from "../message-input/message-input";
+import ChatsController from "../../utils/chats-controller";
+import MessageList from "../chat-feed-message-list/chat-feed-message-list";
 
 interface Props {
 	messageInput: {
@@ -9,7 +11,7 @@ interface Props {
 	user: {
 		[key: string]: string;
 	}
-	chat:{
+	chat: {
 		[key: string]: string;
 	}
 	noCurrentChat?: () => void;
@@ -17,9 +19,10 @@ interface Props {
 
 export default class ChatFeed extends Block {
 	props: Props;
+	controller: ChatsController;
 
 	constructor(props: Props, classList: string = '', parent: string = '', tag: string = 'main') {
-		super(props, tag,  parent, template, `chat-feed ${classList}`);
+		super(props, tag, parent, template, `chat-feed ${classList}`);
 	}
 
 	componentDidRender() {
@@ -27,6 +30,8 @@ export default class ChatFeed extends Block {
 	}
 
 	componentDidMount() {
+		this.controller = new ChatsController();
+		this.childBlocks.messageList = new MessageList('.chat-feed__scrollable');
 		this.childBlocks.messageInput = new MessageInput(this.props.messageInput);
 	}
 

@@ -53,7 +53,9 @@ export default class NavList extends Block {
 		this.childBlocks.addChat = new FormButton({
 			attributes: {class: "form-button form-button_empty"},
 			text: 'CREATE CHAT',
-			callback: this.openAddChatSubmenu
+			callback: () => {
+				this.openAddChatSubmenu()
+			}
 		});
 		this.childBlocks.popup = new TextInputPopup({callback: this.controller.createChat});
 		this.childBlocks.popup.hide();

@@ -27,12 +27,12 @@ export default class ChatFeedHeader extends Block {
 	componentDidRender() {
 		this.childBlocks.chatItem.setProps(this.props.chat);
 		this._attach();
-		this._element?.addEventListener('click',()=>{
-			this.props.onMenuIcon();
-		})
 	}
 
 	componentDidMount() {
+		this._element?.addEventListener('click',()=>{
+			this.props.onMenuIcon();
+		});
 		this.childBlocks.chatItem = new ChatItem(this.props.chat, 'chat-item_static');
 	}
 

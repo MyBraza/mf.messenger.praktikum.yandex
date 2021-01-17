@@ -1,0 +1,31 @@
+.grid {
+  display: grid;
+  grid-template-rows: 70px 1fr;
+  grid-template-columns: 3fr 10fr;
+  grid-template-areas:
+          'nav-head content-head'
+          'nav content-body';
+}
+
+.grid__nav{
+  grid-area: nav;
+}
+
+.grid__content{
+  grid-area: content-body;
+}
+
+.grid__nav-head{
+  grid-area: nav-head;
+}
+
+.grid__content-head{
+  grid-area: content-head;
+}
+
+@import "../../components/nav-search/nav-search";
+@import "../../components/nav-menu/nav-menu";
+@import "../../components/chat-feed-header/chat-feed-header";
+@import "../../components/chat-feed/chat-feed";
+@import "../../components/choose-chat/choose-chat";
+@import "../../components/chat-settings/chat-settings";

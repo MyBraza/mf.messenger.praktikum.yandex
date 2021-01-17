@@ -26,6 +26,8 @@ export default class UserItem extends Block {
 		if(!this.props.avatar){
 			this.props.avatar = '/img/placeholder.jpg'
 		}
+		let {display_name, first_name, second_name} = this.props;
+		this.props.display_name = display_name || `${first_name} ${second_name}`;
 		this.props.text = 'No last message in API';
 	}
 

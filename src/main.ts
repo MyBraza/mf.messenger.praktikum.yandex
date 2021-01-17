@@ -1,10 +1,11 @@
 import Router from "./utils/router";
-import FormWindow from "./components/form-window/form-window";
-import ErrorPage from "./components/error-page/error-page";
-import Chats from "./components/chats/chats";
-import Settings from "./components/settings/settings";
+import FormWindow from "./pages/form-window/form-window";
+import AlertPage from "./pages/alert-page/alert-page";
+import Chats from "./pages/chats/chats";
+import Settings from "./pages/settings/settings";
 import HTTPRequest from "./utils/HTTPRequest";
 import paths from "./utils/paths";
+import './main.less';
 
 const authorization = {
 	tittle: 'Вход',
@@ -115,7 +116,7 @@ const chats = {
 		sendIcon: 'icon-angle-circled-right',
 	},
 	userBar: {
-		imgURL: 'img/alex-suprun-ZHvM3XIOHoE-unsplash-min.jpg',
+		avatar: 'img/alex-suprun-ZHvM3XIOHoE-unsplash-min.jpg',
 		icon: 'icon-circle',
 		settingsIcon: 'icon-cog',
 	},
@@ -147,7 +148,7 @@ const settings = {
 		}
 	},
 	userBar: {
-		imgURL: 'img/alex-suprun-ZHvM3XIOHoE-unsplash-min.jpg',
+		avatar: 'img/alex-suprun-ZHvM3XIOHoE-unsplash-min.jpg',
 		icon: 'icon-circle',
 		settingsIcon: 'icon-cog',
 	},
@@ -230,8 +231,10 @@ const router = new Router('body', '/authorization');
 router
 	.use(paths.settings, Settings, settings)
 	.use(paths.authorization, FormWindow, authorization)
-	.use(paths.error404, ErrorPage, error404)
-	.use(paths.error500, ErrorPage, error500)
+	.use(paths.error404, AlertPage, error404)
+	.use(paths.error500, AlertPage, error500)
 	.use(paths.registration, FormWindow, registration)
 	.use(paths.chats, Chats, chats)
 	.start();
+
+router.go(paths.chats);

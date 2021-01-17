@@ -62,7 +62,6 @@ export default class ProfileSettings extends Block {
 	}
 
 	subscriber = (userInfo: { [key: string]: unknown }) => {
-		console.log(userInfo);
 		for (let key in userInfo) {
 			this.childBlocks[key]?.setProps({value: userInfo[key]});
 		}
