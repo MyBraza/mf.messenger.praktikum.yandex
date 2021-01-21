@@ -42,43 +42,6 @@ export default class FormWindow extends Block {
 
 	constructor(props: Props, classList = 'form-window__authorization-page', parent = '') {
 		super(props, 'main', parent, template, classList);
-		this._attach();
-		const form = this._element?.querySelector('form');
-		const link = this._element?.querySelector('.form-button__link');
-		link?.addEventListener('click', () => {
-			if (this.props.link) {
-				Router.getInstance().go(this.props.link.href);
-			}
-		});
-		form?.addEventListener('submit', this.onsubmit.bind(this));
-	}
-
-	onsubmit(event: Event): void {
-		event.preventDefault();
-		let flag = true;
-		for (const key in this.childBlocks) {
-			const item = this.childBlocks[key];
-			if (item instanceof FormInput) {
-				const result = item.validator();
-				flag = result ? flag : result;
-			}
-		}
-		if (flag) {
-			const form = <HTMLFormElement>event.target;
-			if (form) {
-				const formData = new FormData(form);
-				const data: { [key: string]: unknown } = {};
-				for (const key of formData.keys()) {
-					data[key] = formData.get(key);
-				}
-				if (window.location.pathname === paths.authorization) {
-					this.controller.signIn(data);
-				}
-				if (window.location.pathname === paths.registration) {
-					this.controller.signUp(data);
-				}
-			}
-		}
 	}
 
 	show(): void {
@@ -91,6 +54,51 @@ export default class FormWindow extends Block {
 		const {items, button} = this.props;
 		createChildBlocks(items, this.childBlocks);
 		this.childBlocks.button = new FormButton(button, '', '.form-window__buttons');
+	}
+
+	_addEventListeners(): void {
+		const onSubmit = (event: Event): void => {
+			event.preventDefault();
+			let flag = true;
+			for (const key in this.childBlocks) {
+				const item = this.childBlocks[key];
+				if (item instanceof FormInput) {
+					const result = item.validator();
+					flag = result ? flag : result;
+				}
+			}
+			if (flag) {
+				const form = <HTMLFormElement>event.target;
+				if (form) {
+					const formData = new FormData(form);
+					const data: { [key: string]: unknown } = {};
+					for (const key of formData.keys()) {
+						data[key] = formData.get(key);
+					}
+					if (window.location.pathname === paths.authorization) {
+						this.controller.signIn(data);
+					}
+					if (window.location.pathname === paths.registration) {
+						this.controller.signUp(data);
+					}
+				}
+			}
+		};
+
+		const form = this._element?.querySelector('form');
+		form?.addEventListener('submit', onSubmit);
+
+		const link = this._element?.querySelector('.form-button__link');
+		link?.addEventListener('click', () => {
+			if (this.props.link) {
+				Router.getInstance().go(this.props.link.href);
+			}
+		});
+	}
+
+	componentDidRender(): void {
+		this._addEventListeners();
+		this._attach();
 	}
 
 	render(): string {

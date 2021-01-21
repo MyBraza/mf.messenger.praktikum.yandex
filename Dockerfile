@@ -2,7 +2,7 @@ FROM node:13
 
 WORKDIR /app
 
-ENV PORT 80
+ENV PORT=3000
 
 COPY package.json /app/package.json
 
