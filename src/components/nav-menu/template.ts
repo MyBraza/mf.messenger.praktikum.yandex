@@ -1,1 +1,1 @@
-export default '<div class="{{listContainer}}"></div>'
+export default '<div class="{{listContainer}}"></div>';

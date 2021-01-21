@@ -1,5 +1,5 @@
-import Block from "../block";
-import template from "./template";
+import Block from 'components/block';
+import template from './template';
 
 export default class TextInputPopup extends Block {
 	props: {
@@ -8,12 +8,12 @@ export default class TextInputPopup extends Block {
 		}
 	};
 
-	constructor(props: {}, classList: string = '', parent = '') {
+	constructor(props: Record<string, unknown>, classList = '', parent = '') {
 		super(props, 'div', parent, template, `text-input-popup ${classList}`);
 	}
 
 	render(): string {
-		let form = this.compile(this.template);
+		const form = this.compile(this.template);
 		return form({});
 	}
 }

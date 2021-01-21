@@ -1,9 +1,12 @@
-import Block from "../block";
-import template from "./template";
+import Block from 'components/block';
+import template from './template';
 
 export default class FormInput extends Block {
-	constructor(props: {}, classList: string, parent = '') {
-		super(props,'div',  parent, template, `form-input ${classList}`);
+	constructor(props: Record<string, unknown>, classList: string, parent = '') {
+		super(props, 'div', parent, template, `form-input ${classList}`);
+	}
+
+	componentDidRender(): void {
 		const input = this._element?.querySelector('input');
 		input?.addEventListener('focus', this.validator);
 		input?.addEventListener('blur', this.validator);
@@ -56,11 +59,10 @@ export default class FormInput extends Block {
 		input.classList.remove('error');
 		if (alert) alert.style.display = 'none';
 		return true;
-
 	};
 
 	render(): string {
-		let form = this.compile(this.template);
+		const form = this.compile(this.template);
 		return form(this.props);
 	}
 }

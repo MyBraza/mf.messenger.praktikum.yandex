@@ -1,10 +1,10 @@
-import chai from "chai";
-import Block from "../src/components/block";
+import chai from 'chai';
+import Block from '../src/components/block';
 
 const expect = chai.expect;
 
 describe('Block tests', () => {
-	function createBlock(...options: Array<{} | string>) {
+	function createBlock(...options: Array<Record<string, unknown> | string>) {
 		return new Block(...options);
 	}
 
@@ -13,7 +13,7 @@ describe('Block tests', () => {
 
 		const block = createBlock();
 
-		return {block, spy}
+		return {block, spy};
 	}
 
 	it('Constructor should return an instance of Block', () => {
@@ -24,7 +24,7 @@ describe('Block tests', () => {
 	it('getElement should return an HTML element', () => {
 		const block = createBlock({}, 'SPAN');
 		expect(block.getElement()).to.be.an.instanceOf(Object);
-		expect(block.getElement()?.tagName).to.equal('SPAN');
+		expect(block.getElement()?.nodeName).to.equal('SPAN');
 	});
 
 	it('_registerEvents should call eventBus.on with first argument INIT', () => {
@@ -108,22 +108,13 @@ describe('Block tests', () => {
 		expect(spy).to.be.called();
 	});
 
-	it('_componentDidUpdate should call eventBus.emit with FLOW_RENDER if arguments are not equal', () => {
+	it('_componentDidUpdate should call eventBus.emit with FLOW_RENDER', () => {
 		const {block, spy} = initSpyFunc();
 		block.eventBus.emit = spy;
 
-		block._componentDidUpdate({attribute: {value: 1}}, {attribute: {value: 2}});
+		block._componentDidUpdate();
 
 		expect(spy).to.be.called.with(Block.EVENTS.FLOW_RENDER);
-	});
-
-	it('_componentDidUpdate should not call eventBus.emit if arguments are equal', () => {
-		const {block, spy} = initSpyFunc();
-		block.eventBus.emit = spy;
-
-		block._componentDidUpdate({attribute: {value: 1}}, {attribute: {value: 1}});
-
-		expect(spy).to.not.be.called();
 	});
 
 	it('_render should call eventBus.emit with FLOW_CDR', () => {
@@ -138,7 +129,7 @@ describe('Block tests', () => {
 	it('_render should set _element.innerHTML to render', () => {
 		const block = createBlock();
 
-		let render = 'some string';
+		const render = 'some string';
 
 		block.render = () =>{
 			return render;

@@ -1,13 +1,13 @@
-import Block from "../block";
-import template from "./template";
+import Block from 'components/block';
+import template from './template';
 
 export default class ChooseChat extends Block {
-	constructor(props: {}, classList: string, parent: string = '',) {
-		super(props,'div',  parent, template, classList);
+	constructor(props: Record<string, unknown>, classList: string, parent = '') {
+		super(props, 'div', parent, template, classList);
 	}
 
 	render(): string {
-		let element = this.compile(this.template);
+		const element = this.compile(this.template);
 		return element(this.props);
 	}
 }

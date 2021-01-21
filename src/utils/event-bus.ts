@@ -1,12 +1,11 @@
 class EventBus {
-
 	listeners: { [key: string]: Array<(...args: Array<unknown>) => void> };
 
 	constructor() {
 		this.listeners = {};
 	}
 
-	on(event: string, callback: (...args: Array<unknown>) => void) {
+	on(event: string, callback: (...args: Array<unknown>) => void): void {
 		if (!this.listeners[event]) {
 			this.listeners[event] = [];
 		}
@@ -14,29 +13,29 @@ class EventBus {
 		this.listeners[event].push(callback);
 	}
 
-	off(event: string, callback: (...args: Array<unknown>) => void) {
-		if (!this.listeners[event]) {
-			throw new Error(`Нет события: ${event}`);
+	off(event: string, callback: (...args: Array<unknown>) => void): void {
+		if (!this.exists(event, callback)) {
+			return;
 		}
 
 		this.listeners[event] = this.listeners[event].filter(
-			listener => listener !== callback
+			(listener) => listener !== callback,
 		);
 	}
 
-	exists(event: string, callback: (...args: Array<unknown>) => void) {
-		if (!!this.listeners[event]) {
+	exists(event: string, callback: (...args: Array<unknown>) => void): boolean {
+		if (this.listeners[event]) {
 			return this.listeners[event].includes(callback);
 		}
-		return false
+		return false;
 	}
 
-	emit(event: string, ...args: Array<unknown>) {
+	emit(event: string, ...args: Array<unknown>): void {
 		if (!this.listeners[event]) {
 			return;
 		}
 
-		this.listeners[event].forEach(function (listener: (...args: Array<unknown>) => void) {
+		this.listeners[event].forEach((listener: (...args: Array<unknown>) => void) => {
 			listener(...args);
 		});
 	}

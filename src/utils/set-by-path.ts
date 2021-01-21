@@ -2,7 +2,7 @@ interface Indexed {
 	[key: string]: unknown
 }
 
-const setByPath = (obj: Indexed, newState: unknown, path: string | undefined) => {
+const setByPath = (obj: Indexed, newState: unknown, path: string | undefined): void => {
 	if (!newState) {
 		return;
 	}
@@ -10,11 +10,9 @@ const setByPath = (obj: Indexed, newState: unknown, path: string | undefined) =>
 		Object.assign(obj, newState);
 		return;
 	}
-	let pathArray = path.split('.');
+	const pathArray = path.split('.');
 	Object.assign(obj,
-		pathArray.reduceRight((acc, val) => {
-			return {[val]: acc}
-		}, newState));
+		pathArray.reduceRight((acc, val) => ({[val]: acc}), newState));
 };
 
 export default setByPath;

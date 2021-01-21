@@ -1,34 +1,27 @@
 {
-  "compilerOptions": {
-    "target": "ES2019",
-    "module": "ES2015",
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "rootDir": "./",
-    "outDir": "src/lib",
-    "noUnusedParameters": true,
-    "allowSyntheticDefaultImports": true,
-    "alwaysStrict": true,
-    "strictNullChecks": true,
-    "sourceMap": true,
-    "types": [
-      "handlebars",
-      "mocha",
-      "chai",
-      "chai-spies"
-    ],
-    "plugins": [
-      {
-        "transform": "@zoltu/typescript-transformer-append-js-extension/output/index.js",
-        "after": true
-      }
-    ]
-  },
-  "include": [
-    "@types/*",
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+	"compilerOptions": {
+		"target": "ES2019",
+		"module": "ES2015",
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"rootDir": "./",
+		"outDir": "src/lib",
+		"noUnusedParameters": true,
+		"allowSyntheticDefaultImports": true,
+		"alwaysStrict": true,
+		"strictNullChecks": true,
+		"sourceMap": true,
+		"types": [
+			"handlebars",
+			"mocha",
+			"chai",
+			"chai-spies"
+		]
+	},
+	"include": [
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }

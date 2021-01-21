@@ -1,12 +1,11 @@
 type Indexed = { [key: string]: unknown }
 
-function cloneDeep(obj: unknown): Indexed|unknown {
+function cloneDeep(obj: unknown): Indexed | unknown {
 	if (Object.prototype.toString.call(obj) === '[object Object]') {
-		let object = <Indexed>obj;
-		let target: Indexed = {};
-		for (let prop in object) {
-			if (object.hasOwnProperty(prop)) {
-				// if the value is a nested object, recursively copy all it's properties
+		const object = <Indexed>obj;
+		const target: Indexed = {};
+		for (const prop in object) {
+			if (Object.prototype.hasOwnProperty.call(object, prop)) {
 				if (typeof object[prop] === 'object') {
 					target[prop] = cloneDeep(object[prop]);
 				} else {
@@ -17,8 +16,8 @@ function cloneDeep(obj: unknown): Indexed|unknown {
 		return target;
 	}
 	if (Object.prototype.toString.call(obj) === '[object Array]') {
-		let array = <Array<unknown>>obj;
-		let target: Array<unknown> = [];
+		const array = <Array<unknown>>obj;
+		const target: Array<unknown> = [];
 		array.forEach((val, i) => {
 			if (typeof val === 'object') {
 				target[i] = cloneDeep(val);
@@ -31,4 +30,4 @@ function cloneDeep(obj: unknown): Indexed|unknown {
 	return obj;
 }
 
-export default cloneDeep
+export default cloneDeep;

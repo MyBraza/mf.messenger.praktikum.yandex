@@ -1,4 +1,4 @@
-import queryStringify from "./query-stringify";
+import queryStringify from './query-stringify';
 
 interface Options {
 	data?: { [key: string]: unknown } | FormData;
@@ -13,7 +13,7 @@ const METHODS = {
 	GET: 'GET',
 	POST: 'POST',
 	PUT: 'PUT',
-	DELETE: 'DELETE'
+	DELETE: 'DELETE',
 };
 
 class HTTPRequest {
@@ -29,7 +29,7 @@ class HTTPRequest {
 
 	baseURL: string;
 
-	constructor(baseURL: string = './') {
+	constructor(baseURL = './') {
 		if (HTTPRequest.__instance) {
 			return HTTPRequest.__instance;
 		}
@@ -44,45 +44,53 @@ class HTTPRequest {
 			{...options, method: METHODS.GET},
 			options.timeout);
 	};
-	post = (url: string, options: Options = {}) => {
-		return this.request(url,
-			{...options, method: METHODS.POST},
-			options.timeout);
-	};
-	put = (url: string, options: Options = {}) => {
-		return this.request(url,
-			{...options, method: METHODS.PUT},
-			options.timeout);
-	};
-	delete = (url: string, options: Options = {}) => {
-		return this.request(url,
-			{...options, method: METHODS.DELETE},
-			options.timeout);
-	};
+
+	post = (url: string, options: Options = {}) => this.request(url,
+		{...options, method: METHODS.POST},
+		options.timeout);
+
+	put = (url: string, options: Options = {}) => this.request(url,
+		{...options, method: METHODS.PUT},
+		options.timeout);
+
+	delete = (url: string, options: Options = {}) => this.request(url,
+		{...options, method: METHODS.DELETE},
+		options.timeout);
 
 	request = (url: string, options: Options, timeout = 5000) => {
-		let {method, data} = options;
+		let {method} = options;
+		const {data} = options;
 
 		const defaultHeaders: { [key: string]: string } = {
-			"accept": "application/json",
-			"Content-Type": "application/json"
+			accept: 'application/json',
+			'Content-Type': 'application/json',
 		};
 
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
-			method = method ? method : '';
+			method = method || '';
 			xhr.open(method, this.baseURL + url, true);
 			xhr.timeout = timeout;
 			xhr.withCredentials = true;
-			const headers = {...options.headers, ...defaultHeaders};
-			for (let key in headers) {
-				if (headers.hasOwnProperty(key)) {
+			const headers = {...defaultHeaders, ...options.headers};
+			for (const key in headers) {
+				if (Object.prototype.hasOwnProperty.call(headers, key) && headers[key].length > 0) {
 					xhr.setRequestHeader(key, headers[key]);
 				}
 			}
 
 			xhr.onload = function () {
-				resolve(xhr);
+				let response;
+				try {
+					response = JSON.parse(xhr.response);
+				} catch (e) {
+					console.log(e.message);
+					response = xhr.response;
+				}
+				if (!(xhr.status >= 200 && xhr.status <= 299)) {
+					reject(response);
+				}
+				resolve(response);
 			};
 
 			xhr.onabort = reject;
@@ -91,16 +99,13 @@ class HTTPRequest {
 
 			if (method === 'GET' || !data) {
 				xhr.send();
+			} else if (data instanceof FormData) {
+				xhr.send(data as FormData);
 			} else {
-				if (data instanceof FormData) {
-					xhr.send(<FormData>data);
-				} else {
-					xhr.send(JSON.stringify(data))
-				}
+				xhr.send(JSON.stringify(data));
 			}
 		});
-
 	};
 }
 
-export default new HTTPRequest;
+export default new HTTPRequest();

@@ -1,22 +1,22 @@
-import Block from "../block";
-import template from "./template";
-import store from "../../utils/store";
+import Block from 'components/block';
+import store from 'utils/store';
+import template from './template';
 
 export default class MessageInput extends Block {
 	socket: WebSocket;
 
-	constructor(props: {}, classList: string = '', parent = '', tag: string = 'div') {
+	constructor(props: Record<string, unknown>, classList = '', parent = '', tag = 'div') {
 		super(props, tag, parent, template, `${classList}`);
 		store.subscribe(this.getSocket, 'socket');
 	}
 
-	getSocket = (socket: WebSocket) => {
+	getSocket = (socket: WebSocket): void => {
 		this.socket = socket;
 	};
 
-	componentDidRender() {
+	componentDidRender(): void {
 		const el = this.element?.querySelector('form');
-		el?.addEventListener('submit', event => {
+		el?.addEventListener('submit', (event) => {
 			event.preventDefault();
 			const input = this.element?.querySelector('#message-input-message') as HTMLInputElement;
 			this.socket.send(JSON.stringify({
@@ -24,11 +24,11 @@ export default class MessageInput extends Block {
 				type: 'message',
 			}));
 			input.value = '';
-		})
+		});
 	}
 
 	render(): string {
-		let element = this.compile(this.template);
+		const element = this.compile(this.template);
 		return element(this.props);
 	}
 }

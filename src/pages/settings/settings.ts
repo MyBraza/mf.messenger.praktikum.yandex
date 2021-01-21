@@ -1,18 +1,20 @@
-import Block from "../../components/block";
-import template from "./template";
-import arrangeFormInputsHelper from "../../utils/formItemsHelper";
-import NavMenu from "../../components/nav-menu/nav-menu";
-import SettingsHead from "../../components/settings-nav-header/settings-nav-header";
-import ProfileSettings from "../../components/profile-settings/profile-settings";
-import Router from "../../utils/router";
-import SettingsController from "./settings-controller";
-import paths from "../../utils/paths";
+import Block from 'components/block';
+import arrangeFormInputsHelper from 'utils/formItemsHelper';
+import NavMenu from 'components/nav-menu/nav-menu';
+import SettingsHead from 'components/settings-nav-header/settings-nav-header';
+import ProfileSettings from 'components/profile-settings/profile-settings';
+import Router from 'utils/router';
+import paths from 'utils/paths';
+import SettingsController from './settings-controller';
+import template from './template';
 
 arrangeFormInputsHelper();
 
 interface Button {
 	attributes: { [key: string]: string };
 	text: string;
+
+	[key: string]: unknown;
 }
 
 interface SettingsProps {
@@ -42,7 +44,9 @@ interface Props {
 
 export default class Settings extends Block {
 	props: Props;
+
 	controller: SettingsController;
+
 	childBlocks: {
 		settingsMenu: NavMenu;
 		settingsMenuHeader: SettingsHead;
@@ -50,18 +54,20 @@ export default class Settings extends Block {
 		[key: string]: Block;
 	};
 
-	constructor(props: Props, classList: string = 'grid_settings', parent: string = 'body',) {
+	constructor(props: Props, classList = 'grid_settings', parent = 'body') {
 		super(props, 'div', parent, template, classList);
 		this._attach();
 	}
 
-	componentDidMount() {
-		this.controller = new SettingsController;
-		const {settingsHead, userBar, settings, userSettings} = this.props;
+	componentDidMount(): void {
+		this.controller = new SettingsController();
+		const {
+			settingsHead, userBar, settings, userSettings,
+		} = this.props;
 		this.childBlocks.settingsMenuHeader = new SettingsHead({
 			render: settingsHead,
 			returnCallback: () => {
-				Router.getInstance().go(paths.chats)
+				Router.getInstance().go(paths.chats);
 			},
 		}, 'grid__nav-head');
 		this.childBlocks.settingsMenu = new NavMenu({
@@ -70,9 +76,9 @@ export default class Settings extends Block {
 			userBar: {
 				attributes: userBar,
 				cogButtonCallback: () => {
-					Router.getInstance().go(paths.settings)
-				}
-			}
+					Router.getInstance().go(paths.settings);
+				},
+			},
 		}, 'grid__nav state_settings');
 		this.childBlocks.profileSettings = new ProfileSettings({
 			elements: userSettings,
@@ -80,18 +86,18 @@ export default class Settings extends Block {
 				this.controller.updateUserInfo(form);
 			},
 			onCancel: () => {
-				Router.getInstance().go(paths.chats)
+				Router.getInstance().go(paths.chats);
 			},
-		}, 'grid__content')
+		}, 'grid__content');
 	}
 
-	show() {
+	show(): void {
 		super.show();
 		this.controller.getUserInfo();
 	}
 
 	render(): string {
-		let page = this.compile(template);
+		const page = this.compile(template);
 		return page({});
 	}
 }

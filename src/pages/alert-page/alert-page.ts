@@ -1,9 +1,9 @@
-import Router from "../../utils/router";
-import Block from "../../components/block";
-import template from "./template";
+import Router from 'utils/router';
+import Block from 'components/block';
+import template from './template';
 
 export default class AlertPage extends Block {
-	constructor(props: {}, classList: string, parent: string = '',) {
+	constructor(props: Record<string, unknown>, classList: string, parent = '') {
 		super(props, 'main', parent, template, classList);
 		const button = this._element?.querySelector('.error-window__button');
 		button?.addEventListener('click', () => {
@@ -12,7 +12,7 @@ export default class AlertPage extends Block {
 	}
 
 	render(): string {
-		let element = this.compile(this.template);
+		const element = this.compile(this.template);
 		return element(this.props);
 	}
 }

@@ -1,23 +1,25 @@
-import Block from "../components/block";
-import detach from "./detach";
-import render from "./render";
+import Block from 'components/block';
+import detach from './detach';
+import render from './render';
 
 interface Props {
 	[key: string]: unknown
 }
 
-const isBlock = (object: Block | null): object is Block => {
-	return object !== null;
-};
+const isBlock = (object: Block | null): object is Block => object !== null;
 
 class Route {
 	_pathname: string;
+
 	_blockClass: typeof Block;
+
 	_block: Block | null;
+
 	_props: Props;
+
 	_rootQuery: string;
 
-	constructor(pathname: string, view: typeof Block, rootQuery:string, props: Props) {
+	constructor(pathname: string, view: typeof Block, rootQuery: string, props: Props) {
 		this._pathname = pathname;
 		this._blockClass = view;
 		this._block = null;
@@ -25,25 +27,18 @@ class Route {
 		this._rootQuery = rootQuery;
 	}
 
-	navigate(pathname: string) {
-		if (this.match(pathname)) {
-			this._pathname = pathname;
-			this.render();
-		}
-	}
-
-	leave() {
+	leave(): void {
 		if (this._block) {
 			this._block.hide();
-			detach(this._rootQuery, this._block)
+			detach(this._rootQuery, this._block);
 		}
 	}
 
-	match(pathname: string) {
+	match(pathname: string): boolean {
 		return pathname === this._pathname;
 	}
 
-	render() {
+	render(): void {
 		if (!this._block) {
 			this._block = new this._blockClass(this._props);
 		}
@@ -51,8 +46,7 @@ class Route {
 		if (isBlock(this._block)) {
 			render(this._rootQuery, this._block);
 		}
-		return;
 	}
 }
 
-export default Route
+export default Route;

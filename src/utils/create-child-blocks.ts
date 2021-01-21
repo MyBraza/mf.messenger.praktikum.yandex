@@ -1,5 +1,5 @@
-import FormInput from "../components/form-input/form-input";
-import Block from "../components/block";
+import FormInput from 'components/form-input/form-input';
+import Block from 'components/block';
 
 interface FormInputs {
 	[key: string]: { [key: string]: string }
@@ -9,21 +9,21 @@ interface ChildBlocks {
 	[key: string]: Block;
 }
 
-const createChildBlocks = (formInputs: FormInputs, childBlocks: ChildBlocks) => {
-	let skip: Array<string> = [];
+const createChildBlocks = (formInputs: FormInputs, childBlocks: ChildBlocks): void => {
+	const skip: Array<string> = [];
 
-	for (let item in formInputs) {
-		if (formInputs.hasOwnProperty(item) && !skip.includes(item) && item !== 'button') {
-			let itemProps = Object.assign({}, formInputs[item]);
+	for (const item in formInputs) {
+		if (Object.prototype.hasOwnProperty.call(formInputs, item) && !skip.includes(item) && item !== 'button') {
+			const itemProps = {...formInputs[item]};
 			itemProps.id = item;
-			let neighbor = itemProps.with;
+			const neighbor = itemProps.with;
 			if (neighbor !== undefined && !skip.includes(neighbor)) {
-				let neighborProps = Object.assign({}, formInputs[neighbor]);
+				const neighborProps = {...formInputs[neighbor]};
 				neighborProps.id = neighbor;
-				childBlocks[neighbor] = new FormInput(neighborProps, 'form-window__item', `#${item}-container`,);
+				childBlocks[neighbor] = new FormInput(neighborProps, 'form-window__item', `#${item}-container`);
 				skip.push(neighbor);
 			}
-			childBlocks[item] = new FormInput(itemProps, 'form-window__item', `#${item}-container`,);
+			childBlocks[item] = new FormInput(itemProps, 'form-window__item', `#${item}-container`);
 		}
 	}
 };

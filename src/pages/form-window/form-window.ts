@@ -1,12 +1,12 @@
-import Block from "../../components/block";
-import template from "./template";
-import FormInput from "../../components/form-input/form-input";
-import FormButton from "../../components/button/form-button";
-import formItemsHelper from "../../utils/formItemsHelper";
-import createChildBlocks from "../../utils/create-child-blocks";
-import Router from "../../utils/router";
-import paths from "../../utils/paths";
-import FormWindowController from "./form-window-controller";
+import Block from 'components/block';
+import FormInput from 'components/form-input/form-input';
+import FormButton from 'components/button/form-button';
+import formItemsHelper from 'utils/formItemsHelper';
+import createChildBlocks from 'utils/create-child-blocks';
+import Router from 'utils/router';
+import paths from 'utils/paths';
+import template from './template';
+import FormWindowController from './form-window-controller';
 
 formItemsHelper();
 
@@ -35,10 +35,12 @@ export default class FormWindow extends Block {
 		[id: string]: FormInput | FormButton
 		button: FormButton
 	};
+
 	controller: FormWindowController;
+
 	props: Props;
 
-	constructor(props: Props, classList: string = 'form-window__authorization-page', parent = '') {
+	constructor(props: Props, classList = 'form-window__authorization-page', parent = '') {
 		super(props, 'main', parent, template, classList);
 		this._attach();
 		const form = this._element?.querySelector('form');
@@ -48,44 +50,43 @@ export default class FormWindow extends Block {
 				Router.getInstance().go(this.props.link.href);
 			}
 		});
-		form?.addEventListener('submit', this.onsubmit.bind(this))
+		form?.addEventListener('submit', this.onsubmit.bind(this));
+	}
 
-	};
-
-	onsubmit(event: Event) {
+	onsubmit(event: Event): void {
 		event.preventDefault();
 		let flag = true;
-		for (let key in this.childBlocks) {
-			let item = this.childBlocks[key];
+		for (const key in this.childBlocks) {
+			const item = this.childBlocks[key];
 			if (item instanceof FormInput) {
-				let result = item.validator();
+				const result = item.validator();
 				flag = result ? flag : result;
 			}
 		}
 		if (flag) {
-			let form = <HTMLFormElement>event.target;
+			const form = <HTMLFormElement>event.target;
 			if (form) {
-				let formData = new FormData(form);
-				let data: { [key: string]: unknown } = {};
-				for (let key of formData.keys()) {
+				const formData = new FormData(form);
+				const data: { [key: string]: unknown } = {};
+				for (const key of formData.keys()) {
 					data[key] = formData.get(key);
 				}
-				if(window.location.pathname === paths.authorization) {
+				if (window.location.pathname === paths.authorization) {
 					this.controller.signIn(data);
 				}
-				if(window.location.pathname === paths.registration) {
+				if (window.location.pathname === paths.registration) {
 					this.controller.signUp(data);
 				}
 			}
 		}
 	}
 
-	show() {
+	show(): void {
 		this.controller.logOut();
 		super.show();
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		this.controller = new FormWindowController();
 		const {items, button} = this.props;
 		createChildBlocks(items, this.childBlocks);
@@ -93,7 +94,7 @@ export default class FormWindow extends Block {
 	}
 
 	render(): string {
-		let form = this.compile(template);
+		const form = this.compile(template);
 		return form(this.props);
 	}
 }

@@ -1,6 +1,6 @@
-import Block from "../block";
-import template from "./template";
-import UserItem from "../user-item/user-item";
+import Block from 'components/block';
+import template from './template';
+import UserItem from '../user-item/user-item';
 
 interface Props {
 	items?: {
@@ -17,16 +17,16 @@ interface Props {
 export default class UsersList extends Block {
 	props: Props;
 
-	constructor(props: Props, classList: string = '', parent: string = '', tag: string = 'ul') {
+	constructor(props: Props, classList = '', parent = '', tag = 'ul') {
 		super(props, tag, parent, template, `users-list ${classList}`);
 	}
 
-	componentDidRender() {
+	componentDidRender(): void {
 		this.childBlocks = {};
 		const {actionType, deleteUser, addUser} = this.props;
 		const callback = actionType === 'add' ? addUser : deleteUser;
-		for (let key in this.props.items) {
-			if (this.props.items.hasOwnProperty(key)) {
+		for (const key in this.props.items) {
+			if (Object.prototype.hasOwnProperty.call(this.props.items, key)) {
 				this.childBlocks[key] = new UserItem({...this.props.items[key], action: callback});
 			}
 		}
@@ -41,7 +41,7 @@ export default class UsersList extends Block {
 	}
 
 	render(): string {
-		let element = this.compile(this.template);
+		const element = this.compile(this.template);
 		return element({});
 	}
 }

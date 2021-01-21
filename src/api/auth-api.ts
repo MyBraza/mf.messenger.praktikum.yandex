@@ -1,5 +1,5 @@
-import BaseAPI from "../utils/base-api";
-import HTTPRequest from "../utils/HTTPRequest";
+import BaseAPI from 'utils/base-api';
+import HTTPRequest from 'utils/HTTPRequest';
 
 class AuthApi extends BaseAPI {
 	signUp(data: { [key: string]: unknown }) {

@@ -1,11 +1,12 @@
-import Router from "./utils/router";
-import FormWindow from "./pages/form-window/form-window";
-import AlertPage from "./pages/alert-page/alert-page";
-import Chats from "./pages/chats/chats";
-import Settings from "./pages/settings/settings";
-import HTTPRequest from "./utils/HTTPRequest";
-import paths from "./utils/paths";
+import Router from 'utils/router';
+import FormWindow from 'pages/form-window/form-window';
+import AlertPage from 'pages/alert-page/alert-page';
+import Chats from 'pages/chats/chats';
+import Settings from 'pages/settings/settings';
+import HTTPRequest from 'utils/HTTPRequest';
+import paths from 'utils/paths';
 import './main.less';
+import 'normalize.css';
 
 const authorization = {
 	tittle: 'Вход',
@@ -24,21 +25,21 @@ const authorization = {
 			tittle: 'Пароль',
 			type: 'password',
 			placeholder: 'Введите пароль',
-		}
+		},
 	},
 	button: {
 		attributes: {
-			"type": "submit",
-			"data-form-name": "authorization",
-			"class": "form-button",
-			"id": "submit-button",
+			type: 'submit',
+			'data-form-name': 'authorization',
+			class: 'form-button',
+			id: 'submit-button',
 		},
-		text: "Авторизоваться"
+		text: 'Авторизоваться',
 	},
 	link: {
 		href: '/registration',
-		text: 'Создать аккаунт'
-	}
+		text: 'Создать аккаунт',
+	},
 };
 
 const registration = {
@@ -50,12 +51,12 @@ const registration = {
 			tittle: 'Имя',
 			type: 'text',
 			placeholder: 'Введите имя',
-			with: 'second_name'
+			with: 'second_name',
 		},
 		second_name: {
 			tittle: 'Фамилия',
 			type: 'text',
-			placeholder: 'Введите фамилию'
+			placeholder: 'Введите фамилию',
 		},
 		login: {
 			tittle: 'Логин',
@@ -80,17 +81,17 @@ const registration = {
 	},
 	button: {
 		attributes: {
-			"type": "submit",
-			"data-form-name": "authorization",
-			"class": "form-button",
-			"id": "submit-button",
+			type: 'submit',
+			'data-form-name': 'authorization',
+			class: 'form-button',
+			id: 'submit-button',
 		},
-		text: "Зарегистрироваться"
+		text: 'Зарегистрироваться',
 	},
 	link: {
 		href: '/authorization',
-		text: 'Авторизоваться'
-	}
+		text: 'Авторизоваться',
+	},
 };
 
 const error404 = {
@@ -107,7 +108,7 @@ const chats = {
 	search: {
 		id: 'chat-list-search',
 		icon: 'icon-search',
-		placeholder: 'Поиск'
+		placeholder: 'Поиск',
 	},
 	messageInput: {
 		formName: 'message-input',
@@ -125,7 +126,7 @@ const chats = {
 		text: 'Выберите чат чтобы начать общение',
 	},
 	render: {
-		test: 'test'
+		test: 'test',
 	},
 	currentChat: undefined,
 };
@@ -133,19 +134,19 @@ const chats = {
 const settings = {
 	settingsHead: {
 		returnIcon: 'icon-left-big',
-		text: 'Управление профилем'
+		text: 'Управление профилем',
 	},
 	settings: {
 		userSettings: {
 			icon: 'icon-id-card',
 			tittle: 'Информация о пользователе',
-			path: paths.settings
+			path: paths.settings,
 		},
 		logOut: {
 			icon: 'icon-logout',
 			tittle: 'Выйти',
-			path: paths.authorization
-		}
+			path: paths.authorization,
+		},
 	},
 	userBar: {
 		avatar: 'img/alex-suprun-ZHvM3XIOHoE-unsplash-min.jpg',
@@ -158,19 +159,19 @@ const settings = {
 				tittle: 'Имя',
 				type: 'text',
 				placeholder: 'Введите имя',
-				with: 'second_name'
+				with: 'second_name',
 			},
 			second_name: {
 				tittle: 'Фамилия',
 				type: 'text',
-				placeholder: 'Введите фамилию'
+				placeholder: 'Введите фамилию',
 			},
 			display_name: {
 				tittle: 'Отображаемое имя',
 				type: 'text',
 				placeholder: 'Введите имя',
 				with: 'login',
-				required: 'false'
+				required: 'false',
 			},
 			login: {
 				tittle: 'Логин',
@@ -181,7 +182,7 @@ const settings = {
 				tittle: 'Почта',
 				type: 'email',
 				placeholder: 'Введите аддрес электронной почты',
-				with: 'phone'
+				with: 'phone',
 			},
 			phone: {
 				tittle: 'Телефон',
@@ -193,40 +194,39 @@ const settings = {
 				type: 'password',
 				placeholder: 'Введите пароль',
 				with: 'oldPassword',
-				required: 'false'
+				required: 'false',
 			},
 			oldPassword: {
 				tittle: 'Старый пароль',
 				type: 'password',
 				placeholder: 'Введите пароль',
-				required: 'false'
+				required: 'false',
 			},
 		},
 		buttons: {
 			submitButton: {
 				attributes: {
-					"type": "submit",
-					"data-form-name": "profile-info",
-					"class": "form-button",
-					"id": "submit-button",
+					type: 'submit',
+					'data-form-name': 'profile-info',
+					class: 'form-button',
+					id: 'submit-button',
 				},
-				text: "Сохранить"
+				text: 'Сохранить',
 			},
 			cancelButton: {
 				attributes: {
-					"data-form-name": "profile-info",
-					"class": "form-button_empty",
-					"id": "cancel-button",
+					'data-form-name': 'profile-info',
+					class: 'form-button_empty',
+					id: 'cancel-button',
 				},
-				text: "Вернуться"
+				text: 'Вернуться',
 			},
 		},
-	}
+	},
 };
 
 HTTPRequest.baseURL = 'https://ya-praktikum.tech/api/v2';
 const router = new Router('body', '/authorization');
-
 
 router
 	.use(paths.settings, Settings, settings)

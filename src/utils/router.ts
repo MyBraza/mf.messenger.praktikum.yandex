@@ -1,5 +1,5 @@
-import Route from "./route";
-import Block from "../components/block";
+import Block from 'components/block';
+import Route from './route';
 
 interface Props {
 	[key: string]: unknown
@@ -7,11 +7,17 @@ interface Props {
 
 class Router {
 	private static __instance: Router;
+
 	routes: Array<Route>;
+
 	history: typeof window.history;
+
 	_currentRoute: Route | null;
+
 	_rootQuery: string;
+
 	_rootPath: string;
+
 	_error404: string;
 
 	public static getInstance(...args: Array<string | undefined>): Router {
@@ -22,7 +28,7 @@ class Router {
 		return Router.__instance;
 	}
 
-	constructor(rootQuery: string = 'body', rootPath: string = '/home', error404: string = '/error404') {
+	constructor(rootQuery = 'body', rootPath = '/home', error404 = '/error404') {
 		if (Router.__instance) {
 			return Router.__instance;
 		}
@@ -35,13 +41,13 @@ class Router {
 		Router.__instance = this;
 	}
 
-	use(pathname: string, block: typeof Block, props: Props) {
+	use(pathname: string, block: typeof Block, props: Props):Router {
 		const route = new Route(pathname, block, this._rootQuery, props);
 		this.routes.push(route);
-		return this
+		return this;
 	}
 
-	start() {
+	start(): void {
 		window.onpopstate = (event: PopStateEvent) => {
 			event.preventDefault();
 			if (event.currentTarget !== null) {
@@ -52,7 +58,7 @@ class Router {
 		this._onRoute(window.location.pathname);
 	}
 
-	_onRoute(pathname: string) {
+	_onRoute(pathname: string): void {
 		if (pathname === '' || pathname === '/') {
 			pathname = this._rootPath;
 		}
@@ -61,7 +67,7 @@ class Router {
 		if (!route) {
 			route = this.getRoute(this._error404);
 			if (!route) {
-				return
+				return;
 			}
 		}
 
@@ -73,24 +79,24 @@ class Router {
 		route.render();
 	}
 
-	go(pathname: string = this._rootPath) {
+	go(pathname: string = this._rootPath): void {
 		if (window.location.pathname !== pathname) {
-			this.history.pushState({}, "", pathname);
+			this.history.pushState({}, '', pathname);
 			this._onRoute(pathname);
 		}
 	}
 
-	back() {
+	back(): void {
 		this.history.back();
 	}
 
-	forward() {
+	forward(): void {
 		this.history.forward();
 	}
 
-	getRoute(pathname: string) {
-		return this.routes.find(route => route.match(pathname));
+	getRoute(pathname: string):Route|undefined {
+		return this.routes.find((route) => route.match(pathname));
 	}
 }
 
-export default Router
+export default Router;

@@ -12,7 +12,7 @@ class Store {
 
 	static EVENTS = {
 		FLOW_SDU: 'flow:state-did-update'
-	  };
+	};
 
 	state: State;
 
@@ -38,9 +38,9 @@ class Store {
 	_proxyState(state: State) {
 		return new Proxy(state, {
 			get: (target: State, prop: string) => target[prop],
-			set: (target: State, prop: string, value: any) => {
+			set: (target: State, prop: string, value: unknown) => {
 				if (Object.prototype.toString.call(value) === '[object Object]') {
-					if (isEqual(<State>target[prop], value)) {
+					if (isEqual(<State>target[prop], value as Record<string, unknown>)) {
 						return true;
 					}
 					target[prop] = cloneDeep(value);
@@ -62,15 +62,11 @@ class Store {
 		setByPath(this.state, newState, path);
 	};
 
-	subscribe(callback: (...args: Array<unknown>) => void, prop: string = '') {
+	subscribe(callback: (...args: Array<unknown>) => void, prop = '') {
 		if (!this.eventBus.exists(`${Store.EVENTS.FLOW_SDU}_${prop}`, callback)) {
 			this.eventBus.on(`${Store.EVENTS.FLOW_SDU}_${prop}`, callback);
 			callback(this.state[prop]);
 		}
-	}
-
-	unsubscribe(callback: (...args: Array<unknown>) => void, prop: string = '') {
-		this.eventBus.off(`${Store.EVENTS.FLOW_SDU}_${prop}`, callback);
 	}
 }
 

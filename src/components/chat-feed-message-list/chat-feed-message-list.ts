@@ -1,7 +1,7 @@
-import Block from "../block";
-import template from "./template";
-import store from "../../utils/store";
-import Message from "../message/message";
+import Block from 'components/block';
+import store from 'utils/store';
+import template from './template';
+import Message from '../message/message';
 
 export default class MessageList extends Block {
 	props: {
@@ -9,32 +9,33 @@ export default class MessageList extends Block {
 		users?: Array<{ [key: string]: string }>;
 	};
 
-	constructor(parent: string = '', props: {} = {}, classList: string = '', tag: string = 'main') {
+	constructor(parent = '', props: Record<string, unknown> = {}, classList = '', tag = 'main') {
 		super(props, tag, parent, template, `chat-feed ${classList}`);
 		store.subscribe(this.messagesSubscriber, 'messages');
 		store.subscribe(this.usersSubscriber, 'chat-users');
 	}
 
-	messagesSubscriber = (data: Array<{ [key: string]: string }>) => {
+	messagesSubscriber = (data: Array<{ [key: string]: string }>): void => {
 		this.setProps(data, 'messages');
+		this._element?.parentElement?.scrollTo(0, this._element.parentElement.scrollHeight);
 	};
 
-	usersSubscriber = (data: Array<{ [key: string]: string }>) => {
+	usersSubscriber = (data: Array<{ [key: string]: string }>): void => {
 		this.setProps(data, 'users');
 	};
 
-	componentDidRender() {
+	componentDidRender(): void {
 		this.childBlocks = {};
 		this.props.messages?.forEach((message, id) => {
 			const userId = message.user_id || message.userId;
-			const user = this.props.users?.find(item => item.id === userId);
+			const user = this.props.users?.find((item) => item.id === userId);
 			this.childBlocks[id] = new Message({message, user});
 		});
 		this._attach();
 	}
 
 	render(): string {
-		let element = this.compile(this.template);
+		const element = this.compile(this.template);
 		return element({});
 	}
 }

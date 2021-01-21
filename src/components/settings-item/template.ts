@@ -1,3 +1,3 @@
- export default '<i class="{{icon}} settings-nav__icon">' +
-'</i>' +
-'{{tittle}}'
+export default '<i class="{{icon}} settings-nav__icon">'
++ '</i>'
++ '{{tittle}}';

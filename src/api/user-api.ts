@@ -1,21 +1,22 @@
-import BaseAPI from "../utils/base-api";
-import HTTPRequest from "../utils/HTTPRequest";
-import Router from "../utils/router";
-import paths from "../utils/paths";
+import BaseAPI from 'utils/base-api';
+import HTTPRequest from 'utils/HTTPRequest';
 
 class UserApi extends BaseAPI {
 	request() {
-		return HTTPRequest.get('/auth/user').then(response => {
-			if ((<XMLHttpRequest>response).status === 200) {
-				return JSON.parse((<XMLHttpRequest>response).response);
-			}
-			Router.getInstance().go(paths.authorization);
-			return false;
-		});
+		return HTTPRequest.get('/auth/user');
 	}
 
 	update(data: { [key: string]: unknown }) {
 		return HTTPRequest.put('/user/profile', {data});
+	}
+
+	updateAvatar(data: { [key: string]: unknown } | FormData) {
+		return HTTPRequest.put('/user/profile/avatar', {
+			data,
+			headers: {
+				'Content-Type': '',
+			},
+		});
 	}
 
 	updatePassword(data: { [key: string]: unknown }) {
@@ -24,11 +25,7 @@ class UserApi extends BaseAPI {
 
 	searchUserByLogin(login: string) {
 		const data = {login};
-		return HTTPRequest.post('/user/search', {data}).then(response=>{
-			if ((<XMLHttpRequest>response).status === 200) {
-				return JSON.parse((<XMLHttpRequest>response).response);
-			}
-		});
+		return HTTPRequest.post('/user/search', {data});
 	}
 }
 

@@ -1,8 +1,8 @@
-import Block from "../block";
-import template from "./template";
-import NavList from "../nav-list/nav-list";
-import UserBar from "../user-bar/user-bar";
-import NavListSettings from "../nav-list-settings/nav-list-settings";
+import Block from 'components/block';
+import template from './template';
+import NavList from '../nav-list/nav-list';
+import UserBar from '../user-bar/user-bar';
+import NavListSettings from '../nav-list-settings/nav-list-settings';
 
 interface Props {
 	type?: string
@@ -26,32 +26,30 @@ export default class NavMenu extends Block {
 		list: NavList | NavListSettings;
 		userBar: UserBar;
 	};
+
 	props: Props;
 
-	constructor(props: Props, classList: string, parent: string = '', tag = 'aside') {
+	constructor(props: Props, classList: string, parent = '', tag = 'aside') {
 		super(props, tag, parent, template, `nav-menu ${classList}`);
 		this._attach();
 	}
 
-	componentDidMount() {
+	componentDidMount(): void {
 		const {userBar, chooseItem, items} = this.props;
 		this.childBlocks.userBar = new UserBar(userBar);
 		if (this.props.type === 'settings') {
-			this.childBlocks.list = new NavListSettings({items}, 'nav-menu__list', '.nav-menu__scrollable')
+			this.childBlocks.list = new NavListSettings({items}, 'nav-menu__list', '.nav-menu__scrollable');
 		}
 		if (this.props.type === 'chats') {
 			this.childBlocks.list = new NavList({
 				items,
-				callback: chooseItem
+				callback: chooseItem,
 			}, 'nav-menu__list', '.nav-menu__scrollable');
 		}
-
-
-
 	}
 
 	render(): string {
-		let element = this.compile(this.template);
+		const element = this.compile(this.template);
 		return element({listContainer: 'nav-menu__scrollable'});
 	}
 }

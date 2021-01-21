@@ -1,7 +1,7 @@
 import chai from 'chai';
 import Router from '../src/utils/router';
-import Route from "../src/utils/route";
-import Block from "../src/components/block";
+import Route from '../src/utils/route';
+import Block from '../src/components/block';
 
 const expect = chai.expect;
 
@@ -38,7 +38,7 @@ describe('Router tests', () => {
 		router.history.pushState = spy;
 		router.go(pathName);
 
-		expect(spy).to.be.called.with({}, "", pathName);
+		expect(spy).to.be.called.with({}, '', pathName);
 	});
 
 	it('go should call _onRoute with pathname if pathname is not equal window.location.pathname', () => {
@@ -78,7 +78,5 @@ describe('Router tests', () => {
 
 		expect(spy).to.be.called();
 	});
-
-	// Так и не смог понять как проверить _onRoute
 
 });

@@ -3,9 +3,9 @@ type Indexed = {
 };
 
 function merge(lhs: Indexed, rhs: Indexed): Indexed {
-	let target = lhs;
-	for (let prop in rhs) {
-		if (rhs.hasOwnProperty(prop)) {
+	const target = lhs;
+	for (const prop in rhs) {
+		if (Object.prototype.hasOwnProperty.call(rhs, prop)) {
 			if (Object.prototype.toString.call(rhs[prop]) === '[object Object]') {
 				target[prop] = merge(<Indexed>rhs[prop], <Indexed>target[prop]);
 			} else {
@@ -16,4 +16,4 @@ function merge(lhs: Indexed, rhs: Indexed): Indexed {
 	return target;
 }
 
-export default merge
+export default merge;
