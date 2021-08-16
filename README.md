@@ -7,6 +7,7 @@ Netlify: https://suspicious-heisenberg-e17dd6.netlify.app
 Install dependencies
 
 ```sh
+npm install
 ```
 
 Start local server
