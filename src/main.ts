@@ -226,7 +226,7 @@ const settings = {
 };
 
 HTTPRequest.baseURL = 'https://ya-praktikum.tech/api/v2';
-const router = new Router('body', '/authorization');
+const router = new Router('body', '/chats');
 
 router
 	.use(paths.settings, Settings, settings)
