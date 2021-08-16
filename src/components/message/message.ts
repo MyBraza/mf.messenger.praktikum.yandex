@@ -15,7 +15,7 @@ export default class Message extends Block {
 		if (user) {
 			let {avatar, display_name} = user;
 			const {first_name, second_name} = user;
-			avatar = avatar ? `https://ya-praktikum.tech/${avatar}` : 'img/placeholder.jpg';
+			avatar = avatar ? `https://ya-praktikum.tech/api/v2/resources/${avatar}` : 'img/placeholder.jpg';
 			display_name = display_name || `${first_name} ${second_name}`;
 			const element = this.compile(this.template);
 			return element({message, avatar, display_name});

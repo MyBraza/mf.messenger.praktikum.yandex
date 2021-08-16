@@ -8,7 +8,7 @@ export default class ChatsController {
 	getPageData = (): void => {
 		userApi.request().then((data: { [key: string]: unknown }) => {
 			if (!data) return false;
-			data.avatar = data.avatar ? `https://ya-praktikum.tech${data.avatar}` : data.avatar;
+			data.avatar = data.avatar ? `https://ya-praktikum.tech/api/v2/resources${data.avatar}` : data.avatar;
 			store.setState(data, 'userInfo');
 			return true;
 		}).then((authorized) => {

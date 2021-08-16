@@ -26,7 +26,7 @@ export default class UserItem extends Block {
 		let {display_name, avatar} = this.props;
 		const {first_name, second_name} = this.props;
 		display_name = display_name || `${first_name} ${second_name}`;
-		avatar = avatar ? `https://ya-praktikum.tech/${avatar}` : 'img/placeholder.jpg';
+		avatar = avatar ? `https://ya-praktikum.tech/api/v2/resources/${avatar}` : 'img/placeholder.jpg';
 		const element = this.compile(this.template);
 		return element({...this.props, avatar, display_name});
 	}
