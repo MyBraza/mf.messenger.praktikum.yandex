@@ -7,7 +7,7 @@ export default class SettingsController {
 	getUserInfo(): void {
 		userApi.request().then((data: { [key: string]: unknown }) => {
 			if (!data) return;
-			data.avatar = data.avatar ? `https://ya-praktikum.tech${data.avatar}` : data.avatar;
+			data.avatar = data.avatar ? `https://ya-praktikum.tech/api/v2/resources${data.avatar}` : data.avatar;
 			store.setState(data, 'userInfo');
 		}).catch(() => {
 			Router.getInstance().go(paths.authorization);

@@ -30,7 +30,7 @@ export default class ChatItem extends Block {
 
 	render(): string {
 		let {avatar} = this.props;
-		avatar = avatar ? `https://ya-praktikum.tech/${avatar}` : 'img/placeholder.jpg';
+		avatar = avatar ? `https://ya-praktikum.tech/api/v2/resources/${avatar}` : 'img/placeholder.jpg';
 		const element = this.compile(this.template);
 		return element({...this.props, avatar});
 	}

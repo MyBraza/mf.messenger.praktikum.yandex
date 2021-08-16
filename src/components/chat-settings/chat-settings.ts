@@ -104,7 +104,7 @@ export default class ChatSettings extends Block {
 
 	componentDidRender(): void {
 		let {avatar} = this.props.chat;
-		avatar = avatar ? `https://ya-praktikum.tech/${avatar}` : 'img/placeholder.jpg';
+		avatar = avatar ? `https://ya-praktikum.tech/api/v2/resources/${avatar}` : 'img/placeholder.jpg';
 		this.childBlocks.avatar.setProps({value: avatar});
 		this.childBlocks.title.setProps({value: this.props.chat.title});
 		this._addEventListeners();
