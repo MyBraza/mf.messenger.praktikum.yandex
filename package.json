@@ -50,7 +50,7 @@
 		"eslint-config-airbnb-base": "14.2.1",
 		"eslint-config-google": "0.14.0",
 		"eslint-plugin-import": "2.22.1",
-		"express": "4.17.1",
+		"express": "4.17.3",
 		"husky": "4.3.8",
 		"less": "4.1.0",
 		"less-loader": "7.2.1",
